@@ -31,6 +31,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
 end
 
 group :development do
@@ -56,9 +57,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Gems the task want me to use
 gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-rails'
-gem 'rspec'
-gem 'rspec-rails'
-gem 'rspec-rails-matchers'
+
 gem 'devise'
 gem 'simple_form'
 gem 'haml'

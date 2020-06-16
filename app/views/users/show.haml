@@ -1,0 +1,7 @@
+.jumbotron.center
+  .row
+    .col-sm-6.offset-sm-3
+      %h3= @user.name
+      %p= @user.company
+    .col-sm-3
+      %h5= link_to "Edit", edit_user_registration_path

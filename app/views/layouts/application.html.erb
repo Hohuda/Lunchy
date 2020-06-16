@@ -1,21 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Lunchy</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= render 'layouts/head' %>
   </head>
-
   <body>
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %>
-    <% end %>
-    <%= yield %>
-  </body>
-</html>
+      <header class="navbar navbar-expand-sm bg-dark">
+        <%= render 'layouts/header' %>
+      </header>
+      <div class="container">
+          <%= yield %>
+      </div>
+    </body>
+  </html>

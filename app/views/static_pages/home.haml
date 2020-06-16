@@ -1,0 +1,22 @@
+.jumbotron.text-center
+  %h1 Lunchy App
+  %p Get your food!
+
+.container
+  .row.text-center
+    - if user_signed_in?
+      -if current_user.admin
+        .offset-sm-3.col-sm-6
+          .container
+            %h3= link_to "Add new victual!", '#', method: :create
+      -else
+        .offset-sm-3.col-sm-6
+          .container
+            %h3= link_to "Get your food set!", '#'
+    - else
+      .col-sm-4.offset-sm-2
+        %h3= link_to "Sign Up", new_user_registration_path
+      .col-sm-4
+        %h3= link_to "Log In", new_user_session_path
+        
+    

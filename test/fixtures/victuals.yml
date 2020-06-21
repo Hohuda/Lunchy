@@ -5,29 +5,29 @@
 # below each fixture, per the syntax in the comments below
 #
 
-# First courses victuals
-
-soups_names = ['Borsh', 'Solyanka', 'Shi', 'Chicken soup', 'Tomato soup']
-first_courses = Category.find_by name: 'first_courses'
-soups_names.each do |name|
-  soup = Victual.new name: name, price: 1.99, category: first_courses
-  soup.save
-end
-
-borsh: 
+# Named victuals
+borsh:
   name: Borsh
-  price: 2.59
-  category: first_courses
-  created_at: Time.zone.now
+  price: 2.55
 
-fried_potato:
-  name: Fried potato
-  price: 3
-  category:  main_courses
-  created_at: 1.day.ago
+# Unnamed victuals for each of three main categories
+<% 10.times do |n|%>
+first_victual_<%= n%>:
+  name: FirstVictual#<%= n%>
+  price: <%= 1+100/(n + 1)%>
+  created_at: <%= Time.zone.now%>
+<% end %>
 
-cola: 
-  name: Coca Cola
-  price: 1.54
-  category: drinks
-  created_at: 2.days.ago
+<% 10.times do |n|%>
+main_victual_<%= n%>:
+  name: MainVictual#<%= n%>
+  price: <%= 1+100/(n + 1)%>
+  created_at: <%= Time.zone.now%>
+<% end %>
+
+<% 10.times do |n|%>
+drink_victual_<%= n%>:
+  name: DrinkVictual#<%= n%>
+  price: <%= 1+100/(n + 1)%>
+  created_at: <%= Time.zone.now%>
+<% end %>

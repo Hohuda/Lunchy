@@ -10,13 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_11_172752) do
+ActiveRecord::Schema.define(version: 2020_06_16_132624) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index "\"category_id\", \"name\"", name: "index_categories_on_category_id_and_name", unique: true
+  end
+
+  create_table "category_items", force: :cascade do |t|
+    t.integer "victual_id"
+    t.integer "category_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_category_items_on_category_id"
+    t.index ["victual_id", "category_id"], name: "index_category_items_on_victual_id_and_category_id", unique: true
+    t.index ["victual_id"], name: "index_category_items_on_victual_id"
   end
 
   create_table "menu_items", force: :cascade do |t|
@@ -33,25 +43,28 @@ ActiveRecord::Schema.define(version: 2020_06_11_172752) do
     t.string "name", default: "noname_menu"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_menus_on_created_at"
   end
 
   create_table "order_items", force: :cascade do |t|
     t.integer "order_id"
     t.integer "menu_item_id"
+    t.integer "quantity", default: 1
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index "\"menu_id\", \"order_id\"", name: "index_order_items_on_menu_id_and_order_id", unique: true
     t.index ["menu_item_id"], name: "index_order_items_on_menu_item_id"
+    t.index ["order_id", "menu_item_id"], name: "index_order_items_on_order_id_and_menu_item_id", unique: true
     t.index ["order_id"], name: "index_order_items_on_order_id"
   end
 
   create_table "orders", force: :cascade do |t|
     t.integer "user_id"
     t.integer "menu_id"
-    t.decimal "total_cost"
+    t.decimal "total_cost", default: "0.0", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["menu_id"], name: "index_orders_on_menu_id"
+    t.index ["user_id", "created_at"], name: "index_orders_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -73,11 +86,9 @@ ActiveRecord::Schema.define(version: 2020_06_11_172752) do
   create_table "victuals", force: :cascade do |t|
     t.string "name", null: false
     t.decimal "price"
-    t.integer "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index "\"name\", \"victual_id\"", name: "index_victuals_on_name_and_victual_id", unique: true
-    t.index ["category_id"], name: "index_victuals_on_category_id"
   end
 
 end

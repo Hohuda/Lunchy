@@ -4,8 +4,11 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+
+today_menu: 
+  name: 'Current menu'
+  created_at: <%= Time.zone.now%>
+
+yest_menu:
+  name: 'Yesterday menu'
+  created_at: <%= 1.day.ago%>

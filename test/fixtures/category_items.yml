@@ -5,24 +5,26 @@
 # below each fixture, per the syntax in the comments below
 #
 
-borsh_menu_item:
-  menu: today_menu
+# Fixturing categories for named victuals
+borsh_category_item:
   victual: borsh
+  category: first_courses
 
+# Fixturing categories for unnamed victuals
 <% 10.times do |n|%>
-menu_item_<%= n%>:
-  menu: today_menu
-  victual: first_victual_<%= n%>
+first_course_item<%= n%>:
+  victual: victual_<%= n%>
+  category: first_courses
 <% end %>
 
 <% 10.times do |n|%>
-menu_item_<%= 10+n%>:
-  menu: today_menu
-  victual: main_victual<%= n%>
+main_course_item<%= n%>:
+  victual: main_victual_#<%= n%>
+  category: main_courses
 <% end %>
 
 <% 10.times do |n|%>
-menu_item_<%= 20+n%>:
-  menu: today_menu
-  victual: drink_victual<%= n%>
+drink_item<%= n%>:
+  victual: drink_victual_#<%= n%>
+  category: drinks
 <% end %>

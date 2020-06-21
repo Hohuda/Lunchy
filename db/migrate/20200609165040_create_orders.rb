@@ -7,6 +7,6 @@ class CreateOrders < ActiveRecord::Migration[6.0]
       t.timestamps
     end
     # add_index :orders, [:order_id, :user_id], unique: true
-    add_index :orders, [:user_id, :created_at]
+    add_index :orders, :created_at
   end
 end

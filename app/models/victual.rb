@@ -3,7 +3,7 @@ class Victual < ApplicationRecord
   has_many :category_items
   has_many :categories, through: :category_items
 
-  validates :name, presence: true, uniqueness: { case_sensitive: false}
+  validates :name, presence: true, uniqueness: { scope: :price}
   validates :price, presence: true
 
   # Scopes
@@ -60,7 +60,7 @@ class Victual < ApplicationRecord
   end
 
   # Deleting categories from created victuals
-  def remove_from_category(category)
+  def remove_category(category)
     if category.is_a? Category
       if categories.include? category
         categories.delete category

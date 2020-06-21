@@ -17,6 +17,9 @@ class VictualTest < ActiveSupport::TestCase
 
     # Creating victual with price and unique name
     assert_difference "Victual.count" do
+      # This one to assert that victual with correct attributes is created
+      Victual.create name: 'test', price: 9.99
+      # This one to assert that no victual with duplicated attributes is created
       Victual.create name: 'test', price: 9.99
     end
   end
@@ -31,15 +34,15 @@ class VictualTest < ActiveSupport::TestCase
       @victual.to_main_courses
     end
     assert_not @victual.add_category(nil), msg: 'Should remove only category clas'
-    assert_not @victual.remove_from_category(nil), msg: 'Should remove only category class' 
+    assert_not @victual.remove_category(nil), msg: 'Should remove only category class' 
 
     # Tests for removing category
     assert_difference '@victual.categories.count', -1 do
-      @victual.remove_from_category Category.first_courses
+      @victual.remove_category Category.first_courses
     end
 
     assert_not_includes @victual.categories, Category.first_courses
-    assert_not @victual.remove_from_category(Category.first_courses), msg: "Can't remove non existing categories"
+    assert_not @victual.remove_category(Category.first_courses), msg: "Can't remove non existing categories"
   end
 
   test "should return correct scopes" do

@@ -10,6 +10,10 @@ borsh:
   name: Borsh
   price: 2.55
 
+lasagna:
+  name: Lasagna
+  price: 4.59
+
 # Unnamed victuals for each of three main categories
 <% 10.times do |n|%>
 first_victual_<%= n%>:

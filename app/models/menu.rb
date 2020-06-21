@@ -30,67 +30,59 @@ class Menu < ApplicationRecord
   end
 
   # Adding victuals to menu
-  # Adds one victual to menu
-  def add_victual(victual)
-    if victual.is_a? Victual
-      if victuals.include? victual
-        puts "#{Victual} is already exists"
-        return false 
-      end
-      victuals << victual
-    else
-      return false
-    end
-  end
-
+  
   # Adds victual/victuals to menu
-  def add_victuals(victual_collection)
-    if victual_collection.is_a? Enumerable
-      if victual_collection.count > 1
-        victual_collection.each do |victual|
-          add_victual(victual)
-        end
-      else 
-        add_victual(victual)
+  def add_victuals(collection)
+    if collection.is_a? Enumerable
+      collection.each do |victual|
+        add_victual victual
       end
-    else 
-      puts 'Argument is not enumerable'
-      return false 
+    else
+      add_victual collection
     end
   end
-
-  # Deleting victuals from menu
-  # Deletes victual from menu
-  def remove_victual(victual)
-    if victual.is_a? Victual
-      if victuals.include? victual
-        victuals.delete victual
-        puts "Victual #{victual} deleted"
-        return true
-      else 
-        puts "There is no such victual"
+  
+  # Deletes victual/victuals from menu
+  def remove_victuals(collection)
+    if collection.is_a? Enumerable
+      collection.each do |victual|
+        remove_victual victual
+      end
+    else
+      remove_victual collection
+    end
+  end
+  
+  private 
+  
+    # Adds one victual to menu
+    def add_victual(victual)
+      if victual.is_a? Victual
+        if victuals.include? victual
+          puts "This victual is already exist"
+          return false
+        else
+          victuals << victual
+        end
+      else
+        puts "Argument type mismatch"
         return false
       end
-    else
-      puts "#{victual} is not of Victual class"
-      return false
     end
-  end
-
-  # Deletes collection of victuals from menu
-  def remove_victuals(victual_collection)
-    if victual_collection.is_a? Enumerable
-      if victual_collection.count > 1
-        victual_collection.each do |victual|
-          remove_victual victual
+    
+    # Removes one victual from menu
+    def remove_victual(victual)
+      if victual.is_a? Victual
+        if victuals.include?(victual)
+          victuals.delete victual
+        else
+          puts 'No such victual'
+          return false
         end
-      elsif victual_collection
-        remove_victual victual_collection
+      else
+        puts "Argument type mismatch"
+        return false
       end
-    else 
-      puts "Argument is not enumerable"
-      return false
     end
-  end
-
+  
 end

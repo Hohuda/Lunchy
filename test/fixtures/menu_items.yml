@@ -9,6 +9,10 @@ borsh_menu_item:
   menu: today_menu
   victual: borsh
 
+lasagna_menu_item:
+  menu: today_menu
+  victual: lasagna
+
 <% 10.times do |n|%>
 menu_item_<%= n%>:
   menu: today_menu

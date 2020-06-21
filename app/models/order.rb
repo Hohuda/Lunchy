@@ -14,6 +14,8 @@ class Order < ApplicationRecord
   before_save :calculate_total_cost
   before_validation :add_default_menu, if: Proc.new { |order| order.menu.nil?}
 
+  default_scope -> { order(created_at: :desc) }
+
   # Adds item or collection to order
   def add_items(collection)
     if collection.is_a? Enumerable
@@ -23,7 +25,6 @@ class Order < ApplicationRecord
     else
       add_item(collection)
     end
-    save                              #<<<<<<<---Is it needed???
   end
   
   # Removes item or collection from order
@@ -35,7 +36,6 @@ class Order < ApplicationRecord
     else
       remove_item collection
     end
-    save                              #<<<<<---Is it needed???
   end
   
   private
@@ -85,6 +85,7 @@ class Order < ApplicationRecord
         end
       else
         order_item.quantity += 1
+        order_item.save
       end
     end
     
@@ -114,6 +115,7 @@ class Order < ApplicationRecord
         order_item = order_items.find_by(menu_item: item)
         if order_item.quantity > 1
           order_item.quantity -= 1
+          order_item.save
         else
           order_items.delete(order_item)
         end

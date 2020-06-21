@@ -5,5 +5,6 @@ class MenuItem < ApplicationRecord
 
   validates :menu_id, presence: true
   validates :victual_id, presence: true
-  
+  validates :menu_id, uniqueness: { scope: :victual_id }  
+
 end

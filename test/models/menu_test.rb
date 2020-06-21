@@ -9,15 +9,15 @@ class MenuTest < ActiveSupport::TestCase
   test "should add and delete victuals to menu" do
     # Tests for add/remove victual
     assert_difference '@menu.victuals.count' do
-      @menu.add_victual victuals(:borsh)
+      @menu.add_victuals victuals(:borsh)
     end
-    assert_not @menu.add_victual nil
+    assert_not @menu.add_victuals nil
 
     assert_difference '@menu.victuals.count', -1 do
-      assert @menu.remove_victual victuals(:borsh)
+      assert @menu.remove_victuals victuals(:borsh)
     end
-    assert_not @menu.remove_victual nil
-    assert_not @menu.remove_victual victuals(:borsh)
+    assert_not @menu.remove_victuals nil
+    assert_not @menu.remove_victuals victuals(:borsh)
 
     # Tests for add/remove victuals
     assert_difference '@menu.victuals.count', victuals.count do
@@ -39,7 +39,7 @@ class MenuTest < ActiveSupport::TestCase
   test "should return first/main courses and drinks" do 
     assert_empty @menu.victuals
     vic = Victual.create name: 'vic', price: 2.5
-    @menu.add_victual vic
+    @menu.add_victuals vic
 
     vic.to_first_courses
     assert_includes @menu.first_courses, vic

@@ -5,6 +5,6 @@ class CreateVictuals < ActiveRecord::Migration[6.0]
       t.decimal :price
       t.timestamps
     end
-    add_index :victuals, [:name, :victual_id], unique: true
+    add_index :victuals, [:name, :price], unique: true
   end
 end

@@ -10,6 +10,10 @@ borsh_category_item:
   victual: borsh
   category: first_courses
 
+lasagna_category_item:
+  victual: lasagna
+  category: main_courses
+
 # Fixturing categories for unnamed victuals
 <% 10.times do |n|%>
 first_course_item<%= n%>:

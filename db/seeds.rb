@@ -41,9 +41,9 @@ custom_menu = Menu.create name: 'A lot of different meals.'
 yest_menu = Menu.create name: 'No oisters today.', created_at: 1.day.ago
 
 # Add some victuals to menus
-Victual.first_courses.each {|victual| custom_menu.add_victual(victual)}
-Victual.main_courses.each {|victual| custom_menu.add_victual(victual)}
-Victual.drinks.each {|victual| custom_menu.add_victual(victual)}
+Victual.first_courses.each {|victual| custom_menu.add_victuals(victual)}
+Victual.main_courses.each {|victual| custom_menu.add_victuals(victual)}
+Victual.drinks.each {|victual| custom_menu.add_victuals(victual)}
 
 
 # Seeding user

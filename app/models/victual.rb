@@ -6,6 +6,8 @@ class Victual < ApplicationRecord
   validates :name, presence: true, uniqueness: { scope: :price}
   validates :price, presence: true
 
+  mount_uploader :avatar, AvatarUploader
+
   # Scopes
   # Returns first course victuals
   def self.first_courses

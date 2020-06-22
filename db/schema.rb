@@ -10,18 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_16_132624) do
+ActiveRecord::Schema.define(version: 2020_06_22_162533) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index "\"category_id\", \"name\"", name: "index_categories_on_category_id_and_name", unique: true
   end
 
   create_table "category_items", force: :cascade do |t|
-    t.integer "victual_id"
-    t.integer "category_id"
+    t.bigint "victual_id"
+    t.bigint "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_category_items_on_category_id"
@@ -30,8 +32,8 @@ ActiveRecord::Schema.define(version: 2020_06_16_132624) do
   end
 
   create_table "menu_items", force: :cascade do |t|
-    t.integer "menu_id"
-    t.integer "victual_id"
+    t.bigint "menu_id"
+    t.bigint "victual_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["menu_id", "victual_id"], name: "index_menu_items_on_menu_id_and_victual_id", unique: true
@@ -47,8 +49,8 @@ ActiveRecord::Schema.define(version: 2020_06_16_132624) do
   end
 
   create_table "order_items", force: :cascade do |t|
-    t.integer "order_id"
-    t.integer "menu_item_id"
+    t.bigint "order_id"
+    t.bigint "menu_item_id"
     t.integer "quantity", default: 1
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -58,13 +60,13 @@ ActiveRecord::Schema.define(version: 2020_06_16_132624) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "menu_id"
+    t.bigint "user_id"
+    t.bigint "menu_id"
     t.decimal "total_cost", default: "0.0", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_orders_on_created_at"
     t.index ["menu_id"], name: "index_orders_on_menu_id"
-    t.index ["user_id", "created_at"], name: "index_orders_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -79,6 +81,7 @@ ActiveRecord::Schema.define(version: 2020_06_16_132624) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "admin", default: false, null: false
+    t.string "avatar"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -88,7 +91,8 @@ ActiveRecord::Schema.define(version: 2020_06_16_132624) do
     t.decimal "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index "\"name\", \"victual_id\"", name: "index_victuals_on_name_and_victual_id", unique: true
+    t.string "avatar"
+    t.index ["name", "price"], name: "index_victuals_on_name_and_price", unique: true
   end
 
 end

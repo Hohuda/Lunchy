@@ -1,0 +1,13 @@
+%li
+  .row.justify-content-center
+    .col-sm-4.text-center
+      Order #{order.id}
+    .col-sm-4.text-center
+      = link_to 'Details', '#'
+    
+  .row.justify-content-center
+    .col-sm-4.text-center
+      = link_to order.user.name, order.user
+    .col-sm-4.text-center
+      = time_ago_in_words(order.created_at)
+  %br

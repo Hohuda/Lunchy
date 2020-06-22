@@ -1,0 +1,15 @@
+-if @orders.empty?
+  -unless current_user.admin?
+    %h3.text-center
+      You didn't make any orders.
+    %h3.row.justify-content-center
+      = link_to "Make an order", "#"
+  -else
+    %h3.text-center
+      #{@user.name} didn't make any orders. 
+-else 
+  %h3.text-center
+    #{@user.name} Orders
+  %ul.list-unstyled
+    = render @orders 
+  = will_paginate @orders

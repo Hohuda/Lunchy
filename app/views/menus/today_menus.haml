@@ -1,0 +1,8 @@
+%h3.text-center
+  -if @menus.empty? 
+    There is no today menus yet
+  -else 
+    Today menus
+%ul.list-unstyled
+  = render @menus
+= will_paginate @menus

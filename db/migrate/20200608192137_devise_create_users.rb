@@ -6,7 +6,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
 
       ## Some information
       t.string :name, null: false, default: ""
-      t.string :company, null: true, default: "lunchesCo"
+      t.string :company, null: true, default: ""
 
       ## Database authenticatable
       t.string :email,              null: false, default: ""

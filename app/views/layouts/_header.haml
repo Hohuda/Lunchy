@@ -1,34 +1,27 @@
-.container
-  .text-uppercase
-    = link_to "Lunchy", root_path
-  %nav
-    %ul.list-inline
-      %li.list-inline-item
-        = link_to "Home", root_path
-        |
-      -if user_signed_in? 
-        -if current_user.admin
-          %li.list-inline-item 
-            = link_to "Users", users_path
-          |
-          %li.list-inline-item 
-            = link_to "Orders", '#'
-          |
-          %li.list-inline-item 
-            = link_to "Profile", user_path(current_user)
-          |
-          %li.list-inline-item 
-            = link_to "Log out", destroy_user_session_path, method: :delete
-        -else
-          %li.list-inline-item 
-            = link_to "Orders", '#'
-          |
-          %li.list-inline-item 
-            = link_to "Profile", user_path(current_user)
-          |
-          %li.list-inline-item 
-            = link_to "Log out", destroy_user_session_path, method: :delete
-      -else 
-        %li.list-inline-item 
-          = link_to "Log in", new_user_session_path
-      -# .nav.navbar-nav.navbar-right
+.navbar.navbar-expand-sm.navbar-dark.bg-dark
+  .container
+    .text-uppercase
+      = link_to "Lunchy", root_path, class: 'navbar-brand'
+    %button.navbar-toggler{type: 'button', data: {toggle: 'collapse', target: "#navbarSupportedContent"}, aria: {controls: 'navbarSupportedContent', expanded: 'false', label: 'Toggle navigation'}}
+      %span.navbar-toggler-icon
+    .collapse.navbar-collapse{id:'navbarSupportedContent'}
+      %ul.navbar-nav.ml-auto
+        %li.nav-item
+          = link_to "Home", root_path, class: 'nav-link'
+        -if user_signed_in? 
+          -if current_user.admin?
+            = render 'layouts/header_admin'
+          -else
+            = render 'layouts/header_ordinary'
+          %li.nav-item.dropdown 
+            = link_to "#{current_user.name} Profile", '#', class: 'nav-link dropdown-toggle', id: 'navbarDropdown', role: 'button', data: {toggle: 'dropdown'}
+            .dropdown-menu
+              = link_to 'product', "#", class: 'dropdown-item'
+              = link_to 'product', "#", class: 'dropdown-item'
+              .dropdown-divider
+              = link_to 'product', "#", class: 'dropdown-item'
+          %li.nav-item 
+            = link_to "Log out", destroy_user_session_path, method: :delete, class: 'nav-link'
+        -else 
+          %li.nav-item 
+            = link_to "Log in", new_user_session_path, class: 'nav-link'

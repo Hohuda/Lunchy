@@ -4,5 +4,9 @@ class StaticPagesController < ApplicationController
   
   def home
   end
+  
+  def order_feed
+    @feed_items = Order.all
+  end
 
 end

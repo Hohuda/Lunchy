@@ -1,0 +1,13 @@
+%li
+  .row.justify-content-center
+    .col-sm-4.text-center
+      Menu ##{menu.id}
+      -unless menu.name.nil? 
+        #{menu.name}
+    .col-sm-4.text-center
+      = link_to 'Details', '#'
+    
+  .row.justify-content-center
+    .col-sm-4.offset-sm-4
+      = time_ago_in_words(menu.created_at)
+  %br

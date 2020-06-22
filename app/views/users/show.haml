@@ -1,7 +1,9 @@
 .jumbotron.center
   .row
-    .col-sm-6.offset-sm-3
+    .col-sm-3
+      = avatar_for(@user)
+    .col-sm-6
       %h3= @user.name
       %p= @user.company
-    .col-sm-3
+    .col-sm-3.offset-sm-9
       %h5= link_to "Edit", edit_user_registration_path

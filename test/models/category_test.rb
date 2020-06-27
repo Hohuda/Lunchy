@@ -21,16 +21,16 @@ class CategoryTest < ActiveSupport::TestCase
 
   test "should return first_courses scope" do
     first_courses_category = Category.find_by(name: 'first_courses')
-    assert_equal first_courses_category, Category.first_courses
+    assert_equal first_courses_category, Category.first_course
   end
 
   test "should return main_courses scope" do
     main_courses_category = Category.find_by(name: 'main_courses')
-    assert_equal main_courses_category, Category.main_courses
+    assert_equal main_courses_category, Category.main_course
   end
 
   test "should return drinks scope" do
     drinks_category = Category.find_by(name: 'drinks')
-    assert_equal drinks_category, Category.drinks
+    assert_equal drinks_category, Category.drink
   end
 end

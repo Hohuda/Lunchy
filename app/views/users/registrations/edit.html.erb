@@ -1,0 +1,46 @@
+<h2 class="text-center">Edit <%= resource_name.to_s.humanize %></h2>
+
+<%= simple_form_for(resource, as: resource_name,
+  url: registration_path(resource_name), 
+  html: { method: :put } ) do |f| %>
+  
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+
+    <%= f.input :name, required: true, autofocus: true %>
+
+    <%= f.input :company, 
+                required: false,
+                placeholder: "Enter your company name",
+                input_html: { autocomplete: "current company"} %>
+
+    <div class="row justify-content-center">
+      <div class="mb-4">
+        <%= avatar_for(current_user, version: :thumb) %>
+      </div>
+      <%= f.input :avatar, label: false, 
+                  required: false, 
+                  hint: 'Choose avatar image if you want to change avatar.'%>
+
+      <%= f.input :avatar_cache, as: :hidden %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+    <% end %>
+
+    <%= f.input :current_password,
+                placeholder: "Enter password to confirm changes",
+                hint: "we need your current password to confirm your changes",
+                required: false,
+                input_html: { autocomplete: "current-password" } %>
+
+  </div>
+
+  <div class="text-center form-actions">
+    <%= f.button :submit, "Update", class:'btn btn-primary w-50' %>
+  </div>
+<% end %>
+
+<%= link_to "Back", :back %>

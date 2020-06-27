@@ -1,0 +1,27 @@
+.row
+  .col
+    .row
+      .col
+        %h1.text.mb-3
+          Orders for 
+      .col.
+        %h1
+        #{Date.parse(@date).strftime("%B %d, %Y")}
+    .row 
+      .row
+        Total #{@orders.count} orders.
+      .row
+        .col
+          Total lunch cost: 
+        .col
+          = @total_cost
+
+.container
+  -if @orders.any?
+    %ul.list-group
+      = render @orders
+    .row.justify-content-center.mt-3
+      = will_paginate @orders
+  -else
+    %h3.text-center
+      No orders for now.

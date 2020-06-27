@@ -1,0 +1,6 @@
+.container
+  -if order.victuals.any?
+    %ul.list-group
+      = render order.victuals
+  - else
+    No victuals for now

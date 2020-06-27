@@ -1,9 +1,10 @@
 .jumbotron.center
   .row
     .col-sm-3
-      = avatar_for(@user)
+      = avatar_for(@user, version: :thumb)
     .col-sm-6
       %h3= @user.name
       %p= @user.company
     .col-sm-3.offset-sm-9
-      %h5= link_to "Edit", edit_user_registration_path
+      -if current_user == @user
+        %h5= link_to "Edit", edit_user_registration_path

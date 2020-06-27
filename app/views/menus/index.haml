@@ -1,5 +1,12 @@
-%h3.text-center
+%h1.text-center
   Menus
-%ul.list-unstyled
-  = render @menus
-= will_paginate @menus
+.row.justify-content-end.mb-2
+  .col-auto
+    .container
+      = link_to 'Add New Menu', new_menu_path, class: 'btn btn-success'
+
+.container
+  %ul.list-group
+    = render @menus
+  .row.justify-content-center.mt-3
+    = will_paginate @menus

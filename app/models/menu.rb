@@ -11,26 +11,41 @@ class Menu < ApplicationRecord
   # Scopes 
   # Returns menus created today
   def self.today_menus
-    all.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
+    result = all.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
   end
   
   # Returns first course victuals from menu
   def first_courses
-    victuals.joins(:categories).where("categories.id = ?", Category.first_courses.id)
+    victuals.joins(:categories).where("categories.id = ?", Category.first_course.id)
   end
 
   # Returns main course victuals from menu
   def main_courses
-    victuals.joins(:categories).where("categories.id = ?", Category.main_courses.id)
+    victuals.joins(:categories).where("categories.id = ?", Category.main_course.id)
   end
 
   # Returns drink victuals from menu
   def drinks
-    victuals.joins(:categories).where("categories.id = ?", Category.drinks.id)
+    victuals.joins(:categories).where("categories.id = ?", Category.drink.id)
   end
 
-  # Adding victuals to menu
-  
+  def change_victuals(ids)
+    if ids.is_a? Enumerable
+      ids.filter!{|i| i unless i.blank?}
+      comparison = (categories.ids <=> ids)
+      if comparison == 1
+        diff = categories.ids - ids
+        remove_victuals Victual.find(diff)
+      elsif comparison == -1
+        diff = ids - categories.ids
+        add_victuals Victual.find(diff)
+      end
+    else
+      return false                    #<<<<<------Rework for exception probably
+    end
+  end
+
+
   # Adds victual/victuals to menu
   def add_victuals(collection)
     if collection.is_a? Enumerable
@@ -54,7 +69,7 @@ class Menu < ApplicationRecord
   end
   
   private 
-  
+    
     # Adds one victual to menu
     def add_victual(victual)
       if victual.is_a? Victual

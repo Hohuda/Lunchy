@@ -14,14 +14,12 @@
           -else
             = render 'layouts/header_ordinary'
           %li.nav-item.dropdown 
-            = link_to "#{current_user.name} Profile", '#', class: 'nav-link dropdown-toggle', id: 'navbarDropdown', role: 'button', data: {toggle: 'dropdown'}
+            = link_to current_user.name, '#', class: 'nav-link dropdown-toggle', id: 'navbarDropdown', role: 'button', data: {toggle: 'dropdown'}
             .dropdown-menu
-              = link_to 'product', "#", class: 'dropdown-item'
-              = link_to 'product', "#", class: 'dropdown-item'
+              = link_to 'Profile', current_user, class: 'dropdown-item'
+              = link_to 'Edit', edit_user_registration_path, class: 'dropdown-item'
               .dropdown-divider
-              = link_to 'product', "#", class: 'dropdown-item'
-          %li.nav-item 
-            = link_to "Log out", destroy_user_session_path, method: :delete, class: 'nav-link'
+              = link_to "Log out", destroy_user_session_path, method: :delete, class: 'dropdown-item'
         -else 
           %li.nav-item 
             = link_to "Log in", new_user_session_path, class: 'nav-link'

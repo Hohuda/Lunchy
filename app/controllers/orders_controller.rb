@@ -1,7 +1,14 @@
 class OrdersController < ApplicationController
 
   def index
-    @orders = Order.paginate(page: params[:page])
+    unless params[:search].nil?
+      @date = params[:search][:order_date]
+      @orders = Order.search_by_date(@date).paginate(page: params[:page])
+      @total_cost = @orders.count_total_cost
+      render 'for_day'
+    else
+      @orders = Order.paginate(page: params[:page])
+    end
   end
 
   def orders_of_user
@@ -11,7 +18,7 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find_by(params[:id])
+    @order = Order.find(params[:id])
   end
 
   def new
@@ -23,7 +30,7 @@ class OrdersController < ApplicationController
   end
   
   def create
-    @order = Order.new(article_params)
+    @order = Order.new(order_params)
  
     if @order.save
       flash[:success] = "Order was successfuly created!"
@@ -36,7 +43,7 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
  
-    if @order.update(article_params)
+    if @order.update(order_params)
       flash[:success] = "Order was successfuly updated!"
       redirect_to @order
     else
@@ -53,8 +60,8 @@ class OrdersController < ApplicationController
   end
  
   private
-    def article_params
-      params.require(:order).permit(:menu_id, :user_id)
+    def order_params
+      params.require(:order).permit(:id, :user_id, :menu_id)
     end
 
 end

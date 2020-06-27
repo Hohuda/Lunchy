@@ -1,0 +1,29 @@
+.row
+  .col
+    .row
+      .col
+        %h3
+          = @victual.name
+      .col-auto.text-right
+        %h4
+          = @victual.price
+    .row
+      .col.my-4
+        %ul.list-inline
+          = render @victual.categories
+      -if current_user.admin?
+        .col-auto.m-auto
+          .row
+            .col.my-2
+              = link_to "Edit victual", edit_victual_path(@victual), class: 'btn btn-secondary w-100'
+          .row
+            .col.my2
+              =link_to "Delete victual", victual_path(@victual), method: :delete, class: 'btn btn-danger w-100'
+    .row
+      .col
+        %h4
+          Description
+        %p
+          Here should be victual description.
+  .col-auto
+    = avatar_for(@victual, version: :thumb)

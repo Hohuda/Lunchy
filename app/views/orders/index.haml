@@ -1,5 +1,24 @@
-%h3.text-center
-  All Orders
-%ul.list-unstyled
-  = render @orders
-= will_paginate @orders
+.row
+  .col
+    %h1.text-center.mb-3
+      Orders
+    .row.justify-content-end
+      .col-auto
+        .container 
+          = simple_form_for(:search, url: orders_path, method: :get) do |f|
+            .ul.list-inline.mb-3
+              .li.list-inline-item
+                -# = f.input :order_date, as: :date, start_year: Date.today.year - 1, end_year: Date.today.year, order: [:day, :month, :year], required: false, label: false
+                = f.date_field :order_date, as: :date, value: Time.now.strftime('%Y-%m-%d')
+              .li.list-inline-item
+                = f.button :submit, "Search", class: 'btn btn-success'
+
+.container
+  -if @orders.any?
+    %ul.list-group
+      = render @orders
+    .row.justify-content-center.mt-3
+      = will_paginate @orders
+  -else
+    %h3.text-center
+      No orders for now.

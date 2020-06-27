@@ -1,0 +1,19 @@
+-unless @category.nil?
+  %h5.text-center
+    = render @category
+
+%h1.text-center
+  Victuals
+  
+.row.justify-content-end.mb-2
+  .col-auto
+    .container
+      = link_to 'Add New', new_victual_path, class: 'btn btn-success'
+-unless @victuals.empty?
+  .container
+    = render @victuals
+    .row.justify-content-center.mt-3
+      = will_paginate @victuals
+-else 
+  %h4.text-center
+    No victuals of this category for now

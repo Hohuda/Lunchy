@@ -1,0 +1,6 @@
+.container
+  -if menu.victuals.any?
+    %ul.list-group
+      = render menu.victuals
+  - else
+    No victuals for now

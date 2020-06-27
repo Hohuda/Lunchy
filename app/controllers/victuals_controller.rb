@@ -1,7 +1,7 @@
 class VictualsController < ApplicationController
 
   def index
-    @victuals = Victual.paginate(params[:page])
+    @victuals = Victual.order(:name).paginate(page: params[:page])
   end
  
   def show
@@ -17,25 +17,29 @@ class VictualsController < ApplicationController
   end
  
   def create
-    @victual = Victual.new(article_params)
- 
+    @victual = Victual.new(victual_creating_params)
     if @victual.save
+      @victual.change_categories(params[:victual][:category_ids])
       flash[:success] = "Victual successfuly added!"
       redirect_to @victual
     else
-      flash[:danger] = "Problem has appeared."
+      @victual.errors.messages do |attr, msg|
+        flash[attr] = msg
+      end
       render 'new'
     end
   end
  
   def update
     @victual = Victual.find(params[:id])
- 
-    if @victual.update(article_params)
+    @victual.change_categories(params[:victual][:category_ids])
+    if @victual.update(victual_params)
       flash[:success] = "Victual successfuly updated!"
       redirect_to @victual
     else
-      flash[:danger] = "Problem has appeared."
+      @victual.errors.messages do |attr, msg|
+        flash[attr] = msg
+      end
       render 'edit'
     end
   end
@@ -48,8 +52,10 @@ class VictualsController < ApplicationController
   end
  
   private
-    def article_params
-      params.require(:victual).permit(:title, :text)
+    def victual_params
+      params.require(:victual).permit(:id, :name, :price, category_ids: [])
     end
-
+    def victual_creating_params
+      params.require(:victual).permit(:id, :name, :price)
+    end
 end

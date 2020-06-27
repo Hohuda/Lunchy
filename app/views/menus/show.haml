@@ -1,0 +1,27 @@
+.row
+  .col
+    .row
+      .col
+        .row
+          .col
+            %h3
+              = @menu.name
+          .col-auto.text-right
+            %h4
+              Menu ##{@menu.id}
+        .row.text-right
+          .col
+            = time_ago_in_words(@menu.created_at) 
+            ago
+      -if current_user.admin?
+        .col-auto.m-auto
+          %ul.list-inline
+            %li.list-inline-item
+              = link_to "Edit menu", edit_menu_path(@menu), locals: {menu: @menu}, class: 'btn btn-secondary w-100'
+            %li.list-inline-item
+              = link_to "Delete menu", menu_path(@menu), method: :delete, class: 'btn btn-danger w-100'
+    .row
+      .col.my-4
+        %h5 Menu victuals
+        = render partial: 'menus/victuals', locals: {menu: @menu}
+      

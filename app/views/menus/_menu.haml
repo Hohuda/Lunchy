@@ -1,13 +1,26 @@
-%li
+%li.list-group-item
   .row.justify-content-center
-    .col-sm-4.text-center
-      Menu ##{menu.id}
-      -unless menu.name.nil? 
-        #{menu.name}
-    .col-sm-4.text-center
-      = link_to 'Details', '#'
-    
-  .row.justify-content-center
-    .col-sm-4.offset-sm-4
-      = time_ago_in_words(menu.created_at)
-  %br
+    .col
+      .row
+        .col
+          %h5 Menu ##{menu.id}
+        .col-auto
+          = link_to 'Details', menu_path(menu), class: 'btn btn-secondary'
+      .row
+        .col
+          -unless menu.name.nil? 
+            %h4
+              #{menu.name}
+        .col-auto
+          = time_ago_in_words(menu.created_at) 
+          ago
+
+
+-# <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+-#   <div class="d-flex w-100 justify-content-between">
+-#     <h5 class="mb-1">List group item heading</h5>
+-#     <small>3 days ago</small>
+-#   </div>
+-#   <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+-#   <small>Donec id elit non mi porta.</small>
+-# </a>

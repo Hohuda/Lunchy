@@ -1,0 +1,27 @@
+.row.justify-content-center
+  .col
+    %h2.text-center
+      Edit 
+      %span
+        #{@victual.name}
+    = simple_form_for(@victual, url: victual_path(@victual), html: {method: :put}) do |f|
+      .row.justify-content-between
+        .col-6
+          = f.error_notification
+          .form-inputs
+            = f.input :name, label: 'Name', required: true, autofocus: true
+            = f.input :price, label: 'Price', required: true
+          .row.justify-content-center
+            .col 
+              .text-center
+                = link_to "Choose categories", '#', data: {toggle: 'collapse', target: '#checkboxesList'}, role: 'button', class: "btn btn-secondary"
+                .collapse#checkboxesList
+                  = f.association :categories, as: :check_boxes, label: ''
+              .form-actions.text-center.mt-4
+                = f.button :submit, "Update", class: 'btn btn-primary w-25' 
+        .col-auto
+          .row
+            .col
+              .mb-3
+                = avatar_for(@victual, version: :thumb)
+              = f.input :avatar, label: false, required: false

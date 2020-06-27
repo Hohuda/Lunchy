@@ -1,5 +1,7 @@
-%h3.text-center
+%h1.text-center.mb-5
   All Users
-%ul.list-unstyled
-  = render @users
-= will_paginate @users
+.container
+  %ul.list-group
+    = render @users
+.row.justify-content-center
+  = will_paginate @users

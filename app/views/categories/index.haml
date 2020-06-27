@@ -1,0 +1,19 @@
+.container
+  %h1.text-center.mb-5 Categories
+.row.justify-content-center
+  .col-8
+    .row
+      .col
+        .card.p-4
+          .ul.list-inline
+            -if @categories.any?
+              = render @categories
+            -else
+              %h4 = No categories for now
+      .col-auto.align-top
+        .row.my-2
+          .col
+            = link_to "Add category", new_category_path, class: 'btn btn-success w-100'
+        .row.my-2
+          .col
+            = link_to "Delete category", 'categories/delete', class: 'btn btn-danger w-100'

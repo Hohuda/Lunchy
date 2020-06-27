@@ -1,6 +1,6 @@
-.jumbotron.text-center
-  %h1 Lunchy App
-  %p Get your food!
+.text-center
+  %h1.display-4 Lunchy App
+  %p.lead Get your food!
 
 .container
   .row.text-center
@@ -15,8 +15,8 @@
             %h3= link_to "Get your food set!", '#'
     - else
       .col-sm-4.offset-sm-2
-        %h3= link_to "Sign Up", new_user_registration_path
+        %h3= link_to "Sign Up", 'users/sign_up'
       .col-sm-4
-        %h3= link_to "Log In", new_user_session_path
+        %h3= link_to "Log In", user_session_path
         
     

@@ -7,4 +7,9 @@ class MenuItem < ApplicationRecord
   validates :victual_id, presence: true
   validates :menu_id, uniqueness: { scope: :victual_id }  
 
+  def victuals 
+    result = []
+        
+  end
+
 end

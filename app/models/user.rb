@@ -30,11 +30,7 @@ class User < ApplicationRecord
   end
   
   def admin?
-    if admin
-      return true
-    else
-      return false
-    end
+    return admin
   end
 
   private

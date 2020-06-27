@@ -1,0 +1,36 @@
+.row.my-2
+  .col
+    .row.my-2
+      .col
+        %h3
+          Order ##{@order.id}
+      .col.text-right
+        %h4
+          = link_to @order.user.name, @order.user
+    .row.my-2
+      .col
+        %h3
+          Total cost:
+      .col.text-right
+        %h3.text-right
+          = @order.total_cost
+  .col-3
+    -if @order.editable?
+      .container
+        .row.my-2.justify-content-end
+          = link_to "Edit order", edit_order_path(@order), locals: {order: @order}, class: 'btn btn-secondary w-75'
+        .row.my-2.justify-content-end
+          = link_to "Delete order", order_path(@order), method: :delete, class: 'btn btn-danger w-75'
+    -else 
+      .card.text-center.h-100
+        %h3.mt-4
+          In Delivery
+.row.my-2
+  .container
+    = render @order.menu
+.row.my-2
+  %h4
+    .container
+      Order items
+  = render partial: 'orders/items', locals: {order: @order}
+      

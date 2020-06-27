@@ -1,0 +1,16 @@
+.row.justify-content-center
+  .col-6
+    %h3.text-center
+      Edit menu ##{@menu.id}
+    %h2.text-center
+      #{@menu.name.humanize}
+    = simple_form_for(@menu, url: menu_path(@menu), html: {method: :put}) do |f|
+      = f.error_notification
+      .form-inputs
+        = f.input :name, label: 'Name', required: true, autofocus: true
+        .text-center
+          = link_to "Change Victuals", '#', data: {toggle: 'collapse', target: '#checkboxesList'}, role: 'button', class: "btn btn-secondary"
+          .collapse#checkboxesList
+            = f.association :victuals, as: :check_boxes, label: ''
+        .form-actions.text-center.mt-4
+          = f.button :submit, "Update", class: 'btn btn-primary w-50' 

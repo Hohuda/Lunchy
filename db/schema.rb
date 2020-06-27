@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2020_06_22_162533) do
   end
 
   create_table "menus", force: :cascade do |t|
-    t.string "name", default: "noname_menu"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_menus_on_created_at"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 2020_06_22_162533) do
     t.bigint "user_id"
     t.bigint "menu_id"
     t.decimal "total_cost", default: "0.0", null: false
+    t.boolean "editable", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_orders_on_created_at"
@@ -72,7 +73,7 @@ ActiveRecord::Schema.define(version: 2020_06_22_162533) do
 
   create_table "users", force: :cascade do |t|
     t.string "name", default: "", null: false
-    t.string "company", default: "lunchesCo"
+    t.string "company", default: ""
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -82,6 +83,7 @@ ActiveRecord::Schema.define(version: 2020_06_22_162533) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "admin", default: false, null: false
     t.string "avatar"
+    t.index ["created_at"], name: "index_users_on_created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

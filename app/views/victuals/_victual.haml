@@ -1,0 +1,16 @@
+%li.list-group-item
+  .row
+    .col-auto
+      = link_to avatar_for(victual, version: :small_thumb), victual
+    .col
+      .row
+        .col
+          %h5
+            = link_to victual.name, victual
+        .col-auto
+          %h5
+            = victual.price
+      .row
+        .col
+          %ul.list-inline
+            = render victual.categories

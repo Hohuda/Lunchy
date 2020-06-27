@@ -38,11 +38,11 @@ class VictualTest < ActiveSupport::TestCase
 
     # Tests for removing category
     assert_difference '@victual.categories.count', -1 do
-      @victual.remove_category Category.first_courses
+      @victual.remove_category Category.first_course
     end
 
-    assert_not_includes @victual.categories, Category.first_courses
-    assert_not @victual.remove_category(Category.first_courses), msg: "Can't remove non existing categories"
+    assert_not_includes @victual.categories, Category.first_course
+    assert_not @victual.remove_category(Category.first_course), msg: "Can't remove non existing categories"
   end
 
   test "should return correct scopes" do

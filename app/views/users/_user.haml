@@ -1,9 +1,9 @@
-%li
-  .row.list-partial
+%li.list-group-item
+  .row
     .col-sm-auto
-      = avatar_for(user, version: :xsmall)
+      = link_to avatar_for(user, version: :small_thumb), user
     .col-sm
       = link_to user.name, user
     .col-sm-auto
-      = link_to 'Orders', orders_orders_of_user_path(user_id: user.id)
+      = link_to 'Orders', orders_orders_of_user_path(user_id: user.id), class: 'btn btn-secondary'
   %br

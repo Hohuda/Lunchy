@@ -1,13 +1,11 @@
-%li
-  .row.justify-content-center
-    .col-sm-4.text-center
-      Order #{order.id}
-    .col-sm-4.text-center
-      = link_to 'Details', '#'
-    
-  .row.justify-content-center
-    .col-sm-4.text-center
-      = link_to order.user.name, order.user
-    .col-sm-4.text-center
-      = time_ago_in_words(order.created_at)
-  %br
+%li.list-group-item
+  .row
+    .col
+      %h5 Order ##{order.id}
+    .col-auto
+      = link_to 'Details', order_path(order), class: 'btn btn-secondary'
+  .row
+    .col
+      = link_to order.user.name, user_path(order.user)
+    .col-auto
+      Created #{order.created_at.to_date}

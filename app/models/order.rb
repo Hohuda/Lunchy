@@ -16,7 +16,21 @@ class Order < ApplicationRecord
 
   default_scope -> { order(created_at: :desc) }
 
-  # Adds item or collection to order
+  def self.search_by_date(date)
+    date = Date.parse(date)
+    Order.where(created_at: date.beginning_of_day..date.end_of_day)
+  end
+
+  # Count total cost of orders
+  def self.count_total_cost
+    result = 0
+    find_each do |order|
+      result += order.total_cost
+    end
+    return result
+  end
+
+  # Adds item/items  to order
   def add_items(collection)
     if collection.is_a? Enumerable
       collection.each do |item|
@@ -25,9 +39,20 @@ class Order < ApplicationRecord
     else
       add_item(collection)
     end
+    save
+  end
+
+  # Changes submit field
+  def submit
+    self.editable = false
+    save
+  end
+
+  def editable?
+    return editable
   end
   
-  # Removes item or collection from order
+  # Removes item/items from order
   def remove_items(collection)
     if collection.is_a? Enumerable
       collection.each do |item|
@@ -53,6 +78,7 @@ class Order < ApplicationRecord
       end
     end
     
+    #Adds item to order
     def add_item(item)
       if item.is_a? Victual
         add_victual(item)
@@ -64,6 +90,7 @@ class Order < ApplicationRecord
       end
     end
     
+    # Adds victual to order
     def add_victual(victual)
       item = menu.menu_items.find_by(victual_id: victual.id)
       if item.nil?
@@ -74,6 +101,7 @@ class Order < ApplicationRecord
       end
     end
     
+    # Adds menu_item to order
     def add_menu_item(item)
       order_item = order_items.find_by(menu_item_id: item.id)
       if order_item.nil?
@@ -89,6 +117,7 @@ class Order < ApplicationRecord
       end
     end
     
+    # Removes item from order
     def remove_item(item)
       if item.is_a? Victual
         remove_victual(item)
@@ -100,6 +129,7 @@ class Order < ApplicationRecord
       end
     end
 
+    # Removes victual from order
     def remove_victual(victual)
       item = menu_items.find_by(victual_id: victual.id)
       if item.nil?
@@ -110,6 +140,7 @@ class Order < ApplicationRecord
       end
     end
     
+    # Removes menu_item from order
     def remove_menu_item(item)
       if menu_items.include?(item)
         order_item = order_items.find_by(menu_item: item)

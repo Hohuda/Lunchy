@@ -1,59 +1,92 @@
 # Seeding categories
-categories_names = %w[first_courses main_courses drinks]
+categories_names = ["First course", "Main course", "Drink"]
 
 categories_names.each do |name|
   Category.create name: name
 end
 
+# Caching categories
+first_course = Category.first_course
+main_course = Category.main_course
+drink = Category.drink
+
+p "Start creating foods"
 # Seeding victuals
 # Seeding first_courses victuals
-soups_names = ['Borsh', 'Solyanka', 'Shi', 'Chicken soup', 'Tomato soup']
-
-soups_names.each do |name|
-  soup = Victual.create name: name, price: 1.99
-  soup.to_first_courses
+50.times do |n|
+  food_name = Faker::Food.dish
+  food_price = Random.rand(2.00..10.00)
+  vic = Victual.create(name: food_name, price: food_price) 
+  if Random.rand(1..2) == 1
+    vic.add_category first_course
+  else
+    vic.add_category main_course
+  end
 end
 
-# Seeding main_courses victuals
-mains_names = ['Seared Scallops with Brown Butter and Lemon Pan Sauce', 
-               'Pork Chops with Fig and Grape Agrodolce', 
-               'Cauliflower Bolognese',
-               'Chicken Stew with Potatoes and Radishes']
-
-mains_names.each do |name|
-  main = Victual.create name: name, price: 2.99
-  main.to_main_courses
-end
-
-# Seeding drinks victuals
-drinks_names = ['Juice', 'Green Tea', 'Black Tea', 'Coffee', 'Water', 'Soda']
-
-drinks_names.each do |name|
-  drink = Victual.create name: name, price: 0.99
-  drink.to_drinks
+p "Start create drinks"
+25.times do |n|
+  drink_name = Faker::Beer.style
+  drink_price = Random.rand(2.00..5.00)
+  vic = Victual.create(name: drink_name, price: drink_price)
+  vic.add_category drink
 end
 
 # Seeding menu
 # Seed today's menu
-custom_menu = Menu.create name: 'A lot of different meals.'
-
-# Seed yesterday's menu
-yest_menu = Menu.create name: 'No oisters today.', created_at: 1.day.ago
+p "Start creating menus"
+4.times do |n|
+  menu_name = Faker::Restaurant.type
+  Menu.create(name: menu_name)
+end
+# Seed other menus
+50.times do |n|
+  menu_name = Faker::Restaurant.type
+  days_ago = Random.rand(0..50)
+  Menu.create(name: menu_name, created_at: Time.now - days_ago.day)
+end
 
 # Add some victuals to menus
-Victual.first_courses.each {|victual| custom_menu.add_victuals(victual)}
-Victual.main_courses.each {|victual| custom_menu.add_victuals(victual)}
-Victual.drinks.each {|victual| custom_menu.add_victuals(victual)}
+p "Start adding victuals to menus"
+first_courses = Victual.first_courses
+main_courses = Victual.main_courses
+drinks = Victual.drinks
 
+Menu.all.each do |menu|
+  firsts_amount = Random.rand(1..5)
+  mains_amount = Random.rand(1..5)
+  drinks_amount = Random.rand(1..5)
+  menu.add_victuals first_courses.take(firsts_amount)
+  menu.add_victuals main_courses.take(mains_amount)
+  menu.add_victuals drinks.take(drinks_amount)
+end
 
-# Seeding user
+# Seeding users
+# Seeding admin
+p "Start creating users"
 user = User.create name: 'Anatoly', email: 'anatoly@gmail.com', password: 'password', password_confirmation: 'password'
 
-# Seeding user orders
-order = user.orders.build( { menu: custom_menu } )
-order.add_items order.menu.victuals.first
+# Seeding other account
+99.times do |n|
+  user_name = Faker::Name.name
+  User.create name: user_name, email: "email#{n}@gmail.com", password: 'password'
+end
 
-# yest_order = user.orders.build( { menu: yest_menu, created_at: yest_menu.created_at + 4.hours})
-# yest_order.save
+# Seeding user orders
+p "Start creating orders"
+User.all.each do |user|
+  Menu.all.each do |menu|
+    amount = Random.rand(1..3)
+    (0..amount).each do |n|
+      user.orders.create menu: menu, created_at: menu.created_at
+    end
+  end
+end
 
 # Seeding ordered victuals
+p "Start adding victuals to orders"
+Order.all.each do |order|                                 # <<<<<<<<<<<<<<------------ Change this to seed faster.
+  menu_victuals = order.menu.menu_items
+  amount = Random.rand(1..menu_victuals.count)
+  order.add_items menu_victuals.take(amount)
+end

@@ -20,11 +20,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  def update
-    super do |user|
-      redirect_to user and return
-    end
-  end
+  # def update
+  #   super do |user|
+  #     redirect_to user and return
+  #   end
+  # end
 
   # DELETE /resource
   # def destroy

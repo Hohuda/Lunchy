@@ -4,8 +4,9 @@
       .col
         .row
           .col
-            %h3
-              = @menu.name
+            .container
+              %h3
+                = @menu.name
           .col-auto.text-right
             %h4
               Menu ##{@menu.id}
@@ -22,6 +23,7 @@
               = link_to "Delete menu", menu_path(@menu), method: :delete, class: 'btn btn-danger w-100'
     .row
       .col.my-4
-        %h5 Menu victuals
+        .container
+          %h5 Menu victuals
         = render partial: 'menus/victuals', locals: {menu: @menu}
       

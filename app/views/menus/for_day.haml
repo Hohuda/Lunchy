@@ -1,0 +1,22 @@
+.row.m-auto
+  .col
+    .row.justify-content-start
+      .col-4
+        %h1.mb-3
+          Menus for 
+      .col-4
+        %h1.text-right
+          #{Date.parse(@date).strftime("%B %d, %Y")}
+    .row
+      .col
+        %h3.mb-3
+          Total #{@menus.count} menus.
+.container
+  -if @menus.any?
+    %ul.list-group
+      = render @menus
+    .row.justify-content-center.mt-3
+      = will_paginate @menus
+  -else
+    %h3.text-center
+      No menus for now.

@@ -2,13 +2,14 @@
   %h5.text-center
     = render @category
 
-.row
-  .col-3
-  .col
-    %h1.text-center
-      Victuals
-  .col-3.text-right.m-3
-    = link_to 'Add New', new_victual_path, class: 'btn btn-success'
+.container
+  .row.mb-3
+    .col-3
+    .col
+      %h1.text-center
+        Victuals
+    .col-3.text-right.mt-3
+      = link_to 'Add New', new_victual_path, class: 'btn btn-success'
 
 -unless @victuals.empty?
   .container

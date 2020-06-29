@@ -11,7 +11,7 @@ class Menu < ApplicationRecord
   # Scopes 
   # Returns menus created today
   def self.today_menus
-    result = all.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
+    all.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
   end
   
   # Returns first course victuals from menu
@@ -29,6 +29,7 @@ class Menu < ApplicationRecord
     victuals.joins(:categories).where("categories.id = ?", Category.drink.id)
   end
 
+  # Changes victuals in menu
   def change_victuals(ids)
     if ids.is_a? Enumerable
       ids.filter!{|i| i unless i.blank?}
@@ -41,10 +42,15 @@ class Menu < ApplicationRecord
         add_victuals Victual.find(diff)
       end
     else
-      return false                    #<<<<<------Rework for exception probably
+      false                    #<<<<<------Rework for exception probably
     end
   end
 
+  # Returnes menus with specified created date 
+  def self.search_by_date(date)
+    date = Date.parse(date)
+    Menu.where(created_at: date.beginning_of_day..date.end_of_day)
+  end
 
   # Adds victual/victuals to menu
   def add_victuals(collection)
@@ -75,13 +81,13 @@ class Menu < ApplicationRecord
       if victual.is_a? Victual
         if victuals.include? victual
           puts "This victual is already exist"
-          return false
+          false
         else
           victuals << victual
         end
       else
         puts "Argument type mismatch"
-        return false
+        false
       end
     end
     
@@ -92,11 +98,11 @@ class Menu < ApplicationRecord
           victuals.delete victual
         else
           puts 'No such victual'
-          return false
+          false
         end
       else
         puts "Argument type mismatch"
-        return false
+        false
       end
     end
   

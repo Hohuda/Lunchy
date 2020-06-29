@@ -16,6 +16,7 @@ class Order < ApplicationRecord
 
   default_scope -> { order(created_at: :desc) }
 
+  # Returnes orders with specified created date 
   def self.search_by_date(date)
     date = Date.parse(date)
     Order.where(created_at: date.beginning_of_day..date.end_of_day)
@@ -156,5 +157,4 @@ class Order < ApplicationRecord
       end
     end
 
-  end
-  
+end

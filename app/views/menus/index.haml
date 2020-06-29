@@ -1,11 +1,21 @@
-.row
-  .col-3
-  .col
-    %h1.text-center
-      Menus
-  .col-3.text-right.m-3
-    = link_to 'Add New Menu', new_menu_path, class: 'btn btn-success'
-  
+.container
+  .row.mb-3
+    .col-3
+    .col
+      %h1.text-center
+        Menus
+    .col-3.text-right.mt-3
+      = link_to 'Add New Menu', new_menu_path, class: 'btn btn-success'
+.row.justify-content-end
+  .col-auto
+    .container 
+      = simple_form_for(:search, url: menus_path, method: :get) do |f|
+        .ul.list-inline.mb-3
+          .li.list-inline-item
+            -# = f.input :order_date, as: :date, start_year: Date.today.year - 1, end_year: Date.today.year, order: [:day, :month, :year], required: false, label: false
+            = f.date_field :order_date, as: :date, value: Time.now.strftime('%Y-%m-%d')
+          .li.list-inline-item
+            = f.button :submit, "Search", class: 'btn btn-success'
 
 .container
   %ul.list-group

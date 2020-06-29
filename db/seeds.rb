@@ -15,7 +15,7 @@ p "Start creating foods"
 # Seeding first_courses victuals
 50.times do |n|
   food_name = Faker::Food.dish
-  food_price = Random.rand(2.00..10.00)
+  food_price = Random.rand(2.00..10.00).round(2)
   vic = Victual.create(name: food_name, price: food_price) 
   if Random.rand(1..2) == 1
     vic.add_category first_course
@@ -27,7 +27,7 @@ end
 p "Start create drinks"
 25.times do |n|
   drink_name = Faker::Beer.style
-  drink_price = Random.rand(2.00..5.00)
+  drink_price = Random.rand(2.00..5.00).round(2)
   vic = Victual.create(name: drink_name, price: drink_price)
   vic.add_category drink
 end

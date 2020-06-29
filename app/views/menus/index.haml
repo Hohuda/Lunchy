@@ -1,9 +1,11 @@
-%h1.text-center
-  Menus
-.row.justify-content-end.mb-2
-  .col-auto
-    .container
-      = link_to 'Add New Menu', new_menu_path, class: 'btn btn-success'
+.row
+  .col-3
+  .col
+    %h1.text-center
+      Menus
+  .col-3.text-right.m-3
+    = link_to 'Add New Menu', new_menu_path, class: 'btn btn-success'
+  
 
 .container
   %ul.list-group

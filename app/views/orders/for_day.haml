@@ -1,20 +1,25 @@
-.row
-  .col
-    .row
-      .col
-        %h1.text.mb-3
-          Orders for 
-      .col.
-        %h1
-        #{Date.parse(@date).strftime("%B %d, %Y")}
-    .row 
+.container
+  .row.m-auto
+    .col
+      .row.justify-content-start
+        .col-4
+          %h1.mb-3
+            Orders for 
+        .col-4
+          %h1.text-right
+            #{Date.parse(@date).strftime("%B %d, %Y")}
       .row
-        Total #{@orders.count} orders.
-      .row
-        .col
-          Total lunch cost: 
-        .col
-          = @total_cost
+        .row
+          .col
+            %h3.mb-3
+              Total #{@orders.count} orders.
+        .row.justify-content-center
+          .col-auto
+            %h3.mb-3
+              Total lunch cost: 
+          .col-2
+            %h3.mb-3.text-right
+              = @total_cost
 
 .container
   -if @orders.any?

@@ -40,7 +40,7 @@ p "Start creating menus"
   Menu.create(name: menu_name)
 end
 # Seed other menus
-50.times do
+25.times do
   menu_name = Faker::Restaurant.type
   days_ago = Random.rand(0..50)
   Menu.create(name: menu_name, created_at: Time.now - days_ago.day)
@@ -53,9 +53,9 @@ main_courses = Victual.main_courses
 drinks = Victual.drinks
 
 Menu.all.each do |menu|
-  firsts_amount = Random.rand(1..5)
-  mains_amount = Random.rand(1..5)
-  drinks_amount = Random.rand(1..5)
+  firsts_amount = Random.rand(1..3)
+  mains_amount = Random.rand(1..3)
+  drinks_amount = Random.rand(1..3)
   menu.add_victuals first_courses.take(firsts_amount)
   menu.add_victuals main_courses.take(mains_amount)
   menu.add_victuals drinks.take(drinks_amount)
@@ -67,7 +67,7 @@ p "Start creating users"
 User.create name: 'Anatoly', email: 'anatoly@gmail.com', password: 'password', password_confirmation: 'password'
 
 # Seeding other account
-99.times do |n|
+40.times do |n|
   user_name = Faker::Name.name
   User.create name: user_name, email: "email#{n}@gmail.com", password: 'password'
 end

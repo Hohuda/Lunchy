@@ -3,25 +3,11 @@
     %h2.text-center
       Edit Order ##{@order.id}
 
-    .row
-      .col
-        = simple_form_for(@order, url: order_path(@order), namespace: 'first_namespace', html: {method: :put}) do |f|
-          = f.error_notification
-          .form-inputs
-            .text-center
-              = link_to "Menu", '#', class: 'btn btn-secondary', data: {toggle: 'collapse', target: '#menusCheckboxes'}, type: 'button'
-            .collapse#menusCheckboxes
-              = f.association :menu, as: :radio_buttons, label: '' 
-              .form-actions.text-center
-                = f.button :submit, "Change Menu", class: 'btn btn-primary w-50' 
-      .col  
-        = simple_form_for(@order, url: order_path(@order), namespace: 'second_namespace', html: {method: :put}) do |f|
-          = f.error_notification
-          .form-inputs
-            .text-center
-              = link_to "Items", '#', class: 'btn btn-secondary', data: {toggle: 'collapse', target: '#victualsCheckboxes'}, role: 'button'
-            .collapse#victualsCheckboxes
-              = f.association :victuals, collection: @order.menu.victuals, as: :radio_buttons, label: '' 
-              .form-actions.text-center
-                = f.button :submit, "Change Items", class: 'btn btn-primary w-50' 
+    .col.text-center  
+      = simple_form_for(@order, url: order_path(@order), namespace: 'second_namespace', html: {method: :put}) do |f|
+        = f.error_notification
+        .form-inputs
+          = f.association :victuals, collection: @order.menu.victuals, as: :check_boxes
+        .form-actions.text-center
+          = f.button :submit, "Change Items", class: 'btn btn-primary w-50' 
 

@@ -19,7 +19,7 @@ class Order < ApplicationRecord
   # Returnes orders with specified created date 
   def self.search_by_date(date)
     date = Date.parse(date)
-    Order.where(created_at: date.beginning_of_day..date.end_of_day)
+    where(created_at: date.beginning_of_day..date.end_of_day)
   end
 
   # Count total cost of orders
@@ -29,6 +29,23 @@ class Order < ApplicationRecord
       result += order.total_cost
     end
     return result
+  end
+
+  # Changes victuals in order
+  def change_victuals(ids)
+    if ids.is_a? Enumerable
+      ids.filter!{|i| i unless i.blank?}
+      comparison = (victuals.ids <=> ids)
+      if comparison == 1
+        diff = victuals.ids - ids
+        remove_items Victual.find(diff)
+      elsif comparison == -1
+        diff = ids - victuals.ids
+        add_items Victual.find(diff)
+      end
+    else
+      false                    #<<<<<------Rework for exception probably
+    end
   end
 
   # Adds item/items  to order

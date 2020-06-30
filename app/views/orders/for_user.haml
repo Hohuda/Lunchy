@@ -3,13 +3,20 @@
     %h3.text-center
       You didn't make any orders.
     %h3.row.justify-content-center
-      = link_to "Make an order", "#"
+      = link_to "Make an order", new_order_path
   -else
     %h3.text-center
       #{@user.name} didn't make any orders. 
 -else 
-  %h1.text-center.mb-3
-    #{@user.name} Orders
-  %ul.list-unstyled
-    = render @orders 
-  = will_paginate @orders
+    
+  .container
+    .row.mb-3
+      .col-3
+      .col
+        %h1.text-center
+          #{@user.name} Orders
+      .col-3.text-right.mt-3  
+        = link_to "New order", new_order_path, class: 'btn btn-success'  
+    %ul.list-unstyled
+      = render @orders 
+    = will_paginate @orders

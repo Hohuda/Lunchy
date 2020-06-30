@@ -49,7 +49,8 @@ class MenusController < ApplicationController
     redirect_to menus_path
   end
   
-  def today_menus
+  # today_menus_path
+  def today
     @menus = Menu.today_menus.paginate(page: params[:page])
   end
   

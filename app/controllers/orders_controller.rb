@@ -30,8 +30,8 @@ class OrdersController < ApplicationController
   end
   
   def create
-    @order = Order.new(order_params)
- 
+    @user = User.find(params[:order][:user_id])
+    @order = @user.orders.create
     if @order.save
       flash[:success] = "Order was successfuly created!"
       redirect_to @order
@@ -42,8 +42,8 @@ class OrdersController < ApplicationController
  
   def update
     @order = Order.find(params[:id])
- 
-    if @order.update(order_params)
+    @order.change_victuals(params[:order][:victual_ids])
+    if @order.save
       flash[:success] = "Order was successfuly updated!"
       redirect_to @order
     else
@@ -59,9 +59,15 @@ class OrdersController < ApplicationController
     redirect_to orders_path
   end
  
+  def submit 
+    @order = Order.find(params[:id])
+    @order.submit
+    render 'show'
+  end
+
   private
     def order_params
-      params.require(:order).permit(:id, :user_id, :menu_id)
+      params.require(:order).permit(:id, :user_id, :menu_id, victual_ids: [])
     end
 
 end

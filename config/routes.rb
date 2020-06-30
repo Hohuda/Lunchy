@@ -11,12 +11,19 @@ Rails.application.routes.draw do
   }
   
   get 'orders/for_user'
-  get 'menus/today_menus'
   get 'categories/delete'
 
   resources :victuals
   resources :users
-  resources :orders
-  resources :menus
+  resources :orders do
+    member do 
+      get 'submit'
+    end
+  end
+  resources :menus do
+    collection do
+      get 'today'
+    end
+  end
   resources :categories
 end

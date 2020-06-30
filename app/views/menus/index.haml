@@ -5,7 +5,8 @@
       %h1.text-center
         Menus
     .col-3.text-right.mt-3
-      = link_to 'Add New Menu', new_menu_path, class: 'btn btn-success'
+      -if current_user.admin?
+        = link_to 'Add New Menu', new_menu_path, class: 'btn btn-success'
 .row.justify-content-end
   .col-auto
     .container 

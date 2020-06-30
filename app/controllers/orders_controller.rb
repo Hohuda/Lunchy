@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  def orders_of_user
+  def for_user
     users_orders = Order.where(user_id: params[:user_id])
     @user = User.find(params[:user_id])
     @orders = users_orders.paginate(page: params[:page])

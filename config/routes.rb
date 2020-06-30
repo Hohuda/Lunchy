@@ -10,18 +10,13 @@ Rails.application.routes.draw do
     confirmations: 'users/confirmations',
   }
   
-  get 'orders/orders_of_user'
+  get 'orders/for_user'
   get 'menus/today_menus'
   get 'categories/delete'
 
-
-  resources :searches, only: [:update]
-  resources :users
-  resources :orders 
-  resources :menus
   resources :victuals
+  resources :users
+  resources :orders
+  resources :menus
   resources :categories
-
-
-
 end

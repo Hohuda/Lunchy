@@ -1,9 +1,10 @@
 .row.justify-content-center
   .col-6
-    %h2.text-center Delete Category
-    = simple_form_for(:noname, url: categories_path, html: {method: :delete}) do |f|
+    %h2.text-center Delete Categories
+    = simple_form_for(:categories, url: '#', html: {method: :delete}) do |f|
       = f.error_notification
-      .form-inputs
-        = f.association :categories, autofocus: true
+
+      -# = f.collection_check_boxes :category_ids, Category.all, :id,  :name, label_html: {class: 'm-auto'}
+        
       .form-actions.text-center
         = f.button :submit, "Delete", class: 'btn btn-danger w-25'

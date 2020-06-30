@@ -18,8 +18,6 @@
               .form-actions.text-center.mt-4
                 = f.button :submit, "Create", class: 'btn btn-primary w-25' 
         .col-auto
-          .row
-            .col
-              .mb-3
-                = avatar_for(@victual, version: :thumb)
-              = f.input :avatar, label: false, required: false
+          .mb-3
+            = avatar_for(@victual, version: :thumb)
+          = f.input :avatar, label: false, required: false

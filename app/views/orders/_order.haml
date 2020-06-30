@@ -8,4 +8,5 @@
     .col
       = link_to order.user.name, user_path(order.user)
     .col-auto
-      Created #{order.created_at.to_date}
+      = time_ago_in_words(order.updated_at) 
+      ago

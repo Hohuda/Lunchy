@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
   
   def create
     @user = User.find(params[:order][:user_id])
-    @order = @user.orders.create
+    @order = @user.orders.create(menu: Menu.find(params[:order][:menu_id]))
     if @order.save
       flash[:success] = "Order was successfuly created!"
       redirect_to @order
@@ -55,8 +55,12 @@ class OrdersController < ApplicationController
   def destroy
     @order = Order.find(params[:id])
     @order.destroy
- 
-    redirect_to orders_path
+    
+    if current_user.admin?
+      redirect_to orders_path
+    elsif current_user
+      redirect_to user_orders_path
+    end
   end
  
   def submit 

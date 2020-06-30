@@ -10,14 +10,16 @@ Rails.application.routes.draw do
     confirmations: 'users/confirmations',
   }
   
-  get 'orders/for_user'
-  get 'categories/delete'
+  get 'categories/delete'  # Not implemented 
 
   resources :victuals
   resources :users
   resources :orders do
     member do 
       get 'submit'
+    end
+    collection do
+      get 'for_user', as: :user
     end
   end
   resources :menus do

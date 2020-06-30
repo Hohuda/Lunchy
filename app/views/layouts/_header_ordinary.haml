@@ -1,5 +1,5 @@
 %li.nav-item 
   = link_to "Menus", today_menus_path, class: 'nav-link'
 %li.nav-item 
-  = link_to "Orders", orders_for_user_path(user_id: current_user.id), class: 'nav-link'
+  = link_to "Orders", user_orders_path(user_id: current_user.id), class: 'nav-link'
 

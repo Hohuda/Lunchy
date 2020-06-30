@@ -18,9 +18,9 @@
     -if @order.editable?
       .container
         .row.my-2.justify-content-end
-          = link_to "Edit order", edit_order_path(@order), locals: {order: @order}, class: 'btn btn-secondary w-75'
+          = add_edit_button(@order)
         .row.my-2.justify-content-end
-          = link_to "Submit order", submit_order_path(@order), class: 'btn btn-success w-75'
+          = submit_order_button(@order)
         .row.my-2.justify-content-end
           = link_to "Delete order", order_path(@order), method: :delete, class: 'btn btn-danger w-75'
     -else 

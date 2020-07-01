@@ -5,7 +5,7 @@
       = simple_form_for(@order, url: orders_path, html: {method: :post}) do |f| 
         = f.error_notification
         .fomr-inputs.lead
-          = f.association :menu, as: :check_boxes, collection: Menu.today_menus, label: 'Menus'
+          = f.input :menu_id, as: :radio_buttons, collection: Menu.today_menus, label: 'Menus'
           = f.input :user_id, as: :hidden, input_html: {value: current_user.id}
         .form-actions.text-center.mt-4
           = f.button :submit, "Create", class: 'btn btn-primary w-25' 

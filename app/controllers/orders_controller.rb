@@ -59,7 +59,7 @@ class OrdersController < ApplicationController
     if current_user.admin?
       redirect_to orders_path
     elsif current_user
-      redirect_to user_orders_path
+      redirect_to user_orders_path(user_id: @order.user_id)
     end
   end
  

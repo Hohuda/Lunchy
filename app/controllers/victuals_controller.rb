@@ -18,6 +18,7 @@ class VictualsController < ApplicationController
  
   def create
     @victual = Victual.new(victual_creating_params)
+    @victual.avatar = params[:victual][:avatar]
     if @victual.save
       @victual.change_categories(params[:victual][:category_ids])
       flash[:success] = "Victual successfuly added!"
@@ -33,6 +34,7 @@ class VictualsController < ApplicationController
   def update
     @victual = Victual.find(params[:id])
     @victual.change_categories(params[:victual][:category_ids])
+    @victual.avatar = params[:victual][:avatar]
     if @victual.update(victual_params)
       flash[:success] = "Victual successfuly updated!"
       redirect_to @victual
@@ -53,7 +55,7 @@ class VictualsController < ApplicationController
  
   private
     def victual_params
-      params.require(:victual).permit(:id, :name, :price, category_ids: [])
+      params.require(:victual).permit(:id, :name, :price, category_ids: [], avatar: [])
     end
     def victual_creating_params
       params.require(:victual).permit(:id, :name, :price)

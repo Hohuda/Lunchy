@@ -3,12 +3,20 @@
   %p.lead Get your food!
 
 .container
-  .row.text-center
+  .row.justify-content-center
     - if user_signed_in?
       -if current_user.admin
-        .offset-sm-3.col-sm-6
-          .container
-            %h3= link_to "Add new victual!", '#', method: :create
+        .col
+          .container.text-center
+            %h3
+              = link_to "Add new victual", new_victual_path
+            %h3
+              Manage
+              = link_to "orders", orders_path
+              ,
+              = link_to "menus", menus_path
+              and
+              = link_to "victuals", victuals_path
       -else
         .offset-sm-3.col-sm-6
           .container

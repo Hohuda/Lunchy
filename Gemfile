@@ -52,10 +52,13 @@ group :development do
 end
 
 group :test do
-  # Selenium 
+  # Check for test coverage
+  gem 'simplecov'
+  # Selenium
   gem 'selenium-webdriver'
-  # Easy installation and use of web drivers to run system tests with browsers
+  # Additional oneliners for rspec tests
   gem 'shoulda-matchers'
+  # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
 end
 

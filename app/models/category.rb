@@ -1,5 +1,5 @@
 class Category < ApplicationRecord
-  has_many :category_items
+  has_many :category_items, dependent: :destroy
   has_many :victuals, through: :category_items
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }

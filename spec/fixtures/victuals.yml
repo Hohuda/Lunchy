@@ -1,37 +1,11 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-
-# Named victuals
-borsh:
+first_course_victual:
   name: Borsh
   price: 2.55
 
-lasagna:
+main_course_victual:
   name: Lasagna
   price: 4.59
 
-# Unnamed victuals for each of three main categories
-<% 10.times do |n|%>
-first_victual_<%= n%>:
-  name: FirstVictual#<%= n%>
-  price: <%= 1+100/(n + 1)%>
-  created_at: <%= Time.zone.now%>
-<% end %>
-
-<% 10.times do |n|%>
-main_victual_<%= n%>:
-  name: MainVictual#<%= n%>
-  price: <%= 1+100/(n + 1)%>
-  created_at: <%= Time.zone.now%>
-<% end %>
-
-<% 10.times do |n|%>
-drink_victual_<%= n%>:
-  name: DrinkVictual#<%= n%>
-  price: <%= 1+100/(n + 1)%>
-  created_at: <%= Time.zone.now%>
-<% end %>
+drink_victual:
+  name: Cola
+  price: 1.54

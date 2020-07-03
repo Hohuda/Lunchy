@@ -5,28 +5,14 @@
 # below each fixture, per the syntax in the comments below
 #
 
-borsh_menu_item:
+first_course_menu_item:
   menu: today_menu
-  victual: borsh
+  victual: first_course_victual
 
-lasagna_menu_item:
+main_course_menu_item:
   menu: today_menu
-  victual: lasagna
+  victual: main_course_victual
 
-<% 10.times do |n|%>
-menu_item_<%= n%>:
+drink_menu_item:
   menu: today_menu
-  victual: first_victual_<%= n%>
-<% end %>
-
-<% 10.times do |n|%>
-menu_item_<%= 10+n%>:
-  menu: today_menu
-  victual: main_victual<%= n%>
-<% end %>
-
-<% 10.times do |n|%>
-menu_item_<%= 20+n%>:
-  menu: today_menu
-  victual: drink_victual<%= n%>
-<% end %>
+  victual: drink_victual

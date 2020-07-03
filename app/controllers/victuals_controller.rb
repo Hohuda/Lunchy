@@ -20,7 +20,7 @@ class VictualsController < ApplicationController
     @victual = Victual.new(victual_creating_params)
     @victual.avatar = params[:victual][:avatar]
     if @victual.save
-      @victual.change_categories(params[:victual][:category_ids])
+      @victual.set_categories(params[:victual][:category_ids])
       flash[:success] = "Victual successfuly added!"
       redirect_to @victual
     else
@@ -33,7 +33,7 @@ class VictualsController < ApplicationController
  
   def update
     @victual = Victual.find(params[:id])
-    @victual.change_categories(params[:victual][:category_ids])
+    @victual.set_categories(params[:victual][:category_ids])
     @victual.avatar = params[:victual][:avatar]
     if @victual.update(victual_params)
       flash[:success] = "Victual successfuly updated!"

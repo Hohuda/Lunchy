@@ -7,11 +7,7 @@ RSpec.describe Category, type: :model do
   end
 
   describe 'db columns' do
-    it {
-      should have_db_column(:name).
-        of_type(:string).
-        with_options(null: false, unique: true)
-    }
+    it { should have_db_column(:name).of_type(:string).with_options(null: false, unique: true) }
   end
 
   describe 'validations' do 
@@ -27,25 +23,19 @@ RSpec.describe Category, type: :model do
     context 'first course category scope' do
       subject { Category.first_course }
 
-      it 'should return first course category' do
-        subject.should eq(categories(:first_course))
-      end
+      it { is_expected.to eq(categories(:first_course)) }
     end
 
     context 'main course category scope' do
       subject { Category.main_course }
 
-      it 'should return main course category' do
-        subject.should eq(categories(:main_course))
-      end
+      it { is_expected.to eq(categories(:main_course)) }
     end
 
     context 'drink category scope' do
       subject { Category.drink }
 
-      it 'should return drink category' do
-        subject.should eq(categories(:drink))
-      end
+      it { is_expected.to eq(categories(:drink)) }
     end
   end
 end

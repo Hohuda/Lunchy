@@ -1,4 +1,5 @@
 class Order < ApplicationRecord
+  default_scope -> { order(created_at: :desc) }
 
   belongs_to :user
   belongs_to :menu
@@ -13,8 +14,6 @@ class Order < ApplicationRecord
 
   before_save :calculate_total_cost
   before_validation :add_default_menu, if: Proc.new { |order| order.menu.nil?}
-
-  default_scope -> { order(created_at: :desc) }
 
   # Returnes orders with specified created date 
   def self.search_by_date(date)

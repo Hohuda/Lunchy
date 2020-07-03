@@ -75,6 +75,9 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # To transform deprications to errors to see more info abou them
+  config.raise_errors_for_deprecations!
 end
 
 Shoulda::Matchers.configure do |config|

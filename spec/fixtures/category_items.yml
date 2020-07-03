@@ -1,34 +1,11 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-
-# Fixturing categories for named victuals
-borsh_category_item:
-  victual: borsh
+first_course_category_item:
+  victual: first_course_victual
   category: first_course
 
-lasagna_category_item:
-  victual: lasagna
+main_course_category_item:
+  victual: main_course_victual
   category: main_course
 
-# Fixturing categories for unnamed victuals
-<% 10.times do |n|%>
-first_course_item<%= n%>:
-  victual: victual_<%= n%>
-  category: first_course
-<% end %>
-
-<% 10.times do |n|%>
-main_course_item<%= n%>:
-  victual: main_victual_#<%= n%>
-  category: main_course
-<% end %>
-
-<% 10.times do |n|%>
-drink_item<%= n%>:
-  victual: drink_victual_#<%= n%>
+drink_category_item:
+  victual: drink_victual
   category: drink
-<% end %>

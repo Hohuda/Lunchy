@@ -25,7 +25,7 @@ class MenusController < ApplicationController
   def create
     @menu = Menu.new(menu_creating_params)
     if @menu.save
-      @menu.change_victuals(params[:menu][:victual_ids])
+      @menu.set_victuals(params[:menu][:victual_ids])
       redirect_to @menu
     else
       render 'new'
@@ -34,7 +34,7 @@ class MenusController < ApplicationController
   
   def update
     @menu = Menu.find(params[:id])
-    @menu.change_victuals(params[:menu][:victual_ids])
+    @menu.set_victuals(params[:menu][:victual_ids])
     if @menu.update(menu_params)
       redirect_to @menu
     else

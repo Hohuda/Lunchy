@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2020_06_22_162533) do
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 2020_06_22_162533) do
 
   create_table "victuals", force: :cascade do |t|
     t.string "name", null: false
-    t.decimal "price"
+    t.decimal "price", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "avatar"

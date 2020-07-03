@@ -8,27 +8,27 @@
 # Fixturing categories for named victuals
 borsh_category_item:
   victual: borsh
-  category: first_courses
+  category: first_course
 
 lasagna_category_item:
   victual: lasagna
-  category: main_courses
+  category: main_course
 
 # Fixturing categories for unnamed victuals
 <% 10.times do |n|%>
 first_course_item<%= n%>:
   victual: victual_<%= n%>
-  category: first_courses
+  category: first_course
 <% end %>
 
 <% 10.times do |n|%>
 main_course_item<%= n%>:
   victual: main_victual_#<%= n%>
-  category: main_courses
+  category: main_course
 <% end %>
 
 <% 10.times do |n|%>
 drink_item<%= n%>:
   victual: drink_victual_#<%= n%>
-  category: drinks
+  category: drink
 <% end %>

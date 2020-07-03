@@ -7,14 +7,14 @@
 
 
 # Fixturing three main categories
-first_courses: 
-  name: first_courses
+first_course: 
+  name: First course
   created_at: <%= Time.zone.now%>
 
-main_courses: 
-  name: main_courses
+main_course: 
+  name: Main course
   created_at: <%= 1.day.ago%>
 
-drinks: 
-  name: drinks
+drink: 
+  name: Drink
   created_at: <%= 2.days.ago%>

@@ -3,8 +3,8 @@ class Victual < ApplicationRecord
   has_many :category_items
   has_many :categories, through: :category_items
 
-  validates :name, presence: true, uniqueness: { scope: :price}
-  validates :price, presence: true, numericality: { 
+  validates :name, presence: true, uniqueness: { scope: :price }
+  validates :price, presence: true, numericality: {
     greater_than_or_equal_to: 0.1,
     less_than_or_equal_to: 100
   }
@@ -53,25 +53,22 @@ class Victual < ApplicationRecord
       return false
     end
   end
-  
 
   # Changes categories
   def change_categories(ids)
     if ids.is_a? Enumerable
-      ids.filter!{|i| i unless i.blank?}
-      comparison = (categories.ids <=> ids)
-      if comparison == 1
+      ids.filter! { |i| i unless i.blank? }
+      comp = (categories.ids <=> ids)
+      if comp == 1
         diff = categories.ids - ids
         remove_categories Category.find(diff)
-      elsif comparison == -1
+      elsif comp == -1
         diff = ids - categories.ids
         add_categories Category.find(diff)
       end
-    else
-      return false                    #<<<<<------Rework for exception probably
+    else false                    #<<<<<------Rework for exception probably
     end
   end
-
 
   # Adds many categories to victual
   def add_categories(collection)
@@ -95,44 +92,27 @@ class Victual < ApplicationRecord
     end
   end
   
-  # Adding categories to created victuals
-  def add_category(category)
-    if category.is_a? Category
-      if categories.include? category
-        return false
-      else
-        categories << category
+  private 
+    # Adding categories to created victuals
+    def add_category(category)
+      if category.is_a? Category
+        if categories.include? category
+          false
+        else
+          categories << category
+        end
+      else false
       end
-    else
-      return false
     end
-  end
-  
-  # Deleting categories from created victuals
-  def remove_category(category)
-    if category.is_a? Category
-      if categories.include? category
-        categories.delete category
-      else
-        return false
+
+    # Deleting categories from created victuals
+    def remove_category(category)
+      if category.is_a? Category
+        if categories.include? category
+          categories.delete category
+        else false
+        end
+      else false
       end
-    else
-      return false
     end
-  end
-  
-  # Add first_courses category
-  def to_first_courses
-    add_category Category.first_course
-  end
-  
-  # Add main_courses category
-  def to_main_courses
-    add_category Category.main_course
-  end
-  
-  # Add drinks category
-  def to_drinks
-    add_category Category.drink
-  end
 end

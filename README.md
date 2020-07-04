@@ -7,3 +7,6 @@ To make app running on localhost:
 * first install gems `$ bunlde install`
 * then install dependencies `$ yarn install --check-files`
 * start rails server `$ rails s`
+
+[Heroku link](https://lunchy-orders.herokuapp.com/) for Lunchy
+https://lunchy-orders.herokuapp.com/

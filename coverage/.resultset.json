@@ -200,6 +200,60 @@
           null
         ]
       },
+      "/mnt/c/code/lunchy/app/models/menu.rb": {
+        "lines": [
+          1,
+          null,
+          14,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          3,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          0,
+          0,
+          null,
+          null
+        ]
+      },
+      "/mnt/c/code/lunchy/app/models/concerns/set_associations.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          2,
+          2,
+          2,
+          null,
+          null,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          null,
+          null,
+          null
+        ]
+      },
       "/mnt/c/code/lunchy/app/models/victual.rb": {
         "lines": [
           1,
@@ -217,12 +271,33 @@
           null,
           1,
           1,
+          null
+        ]
+      },
+      "/mnt/c/code/lunchy/app/models/category.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "/mnt/c/code/lunchy/app/models/order.rb": {
+        "lines": [
+          1,
+          1,
           null,
           null,
           null,
           null,
-          null,
-          null,
+          1,
+          1,
           null,
           null,
           null,
@@ -252,16 +327,17 @@
           1,
           1,
           1,
-          1,
+          0,
           null,
           null,
           1,
-          1,
-          1,
-          1,
-          4,
-          2,
-          2,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null,
           1,
           1,
           1,
@@ -279,12 +355,10 @@
           null
         ]
       },
-      "/mnt/c/code/lunchy/app/models/category.rb": {
+      "/mnt/c/code/lunchy/app/models/menu_item.rb": {
         "lines": [
           1,
           1,
-          1,
-          null,
           1,
           null,
           1,
@@ -306,6 +380,6 @@
         ]
       }
     },
-    "timestamp": 1593847139
+    "timestamp": 1593863952
   }
 }

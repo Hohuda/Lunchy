@@ -10,18 +10,8 @@ class Menu < ApplicationRecord
   # Scopes 
   scope :today_menus, -> { where(created_at: Date.today.beginning_of_day..Date.today.end_of_day) }
   
-  # Changes victuals in menu
-  def set_victuals(*ids)
-    ids.filter! { |i| i unless i.blank? }
-    comp = (victuals.ids <=> ids)
-    if comp > 0
-      diff = victuals.ids - ids
-      victuals.delete(Victual.find(diff))
-    elsif comp < 0
-      diff = ids - victuals.ids
-      victuals << Victual.find(diff)
-    end
-  end
+  include SetAssociations
+  create_set_association_method_for(Victual)
 
   # Returnes menus with specified created date 
   def self.search_by_date(date)

@@ -12,5 +12,5 @@ class Victual < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
 
   include SetAssociations
-  create_set_association_method('Category')
+  create_set_association_method_for(Category)
 end

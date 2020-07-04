@@ -1,16 +1,6 @@
 {
   "RSpec": {
     "coverage": {
-      "/mnt/c/code/lunchy/lib/ext/symbol.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          0,
-          null,
-          null
-        ]
-      },
       "/mnt/c/code/lunchy/app/models/user.rb": {
         "lines": [
           1,
@@ -200,11 +190,51 @@
           null
         ]
       },
+      "/mnt/c/code/lunchy/app/models/category_item.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "/mnt/c/code/lunchy/app/models/category.rb": {
+        "lines": [
+          1,
+          29,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          2,
+          2,
+          2,
+          null
+        ]
+      },
+      "/mnt/c/code/lunchy/app/models/menu_item.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null
+        ]
+      },
       "/mnt/c/code/lunchy/app/models/menu.rb": {
         "lines": [
           1,
           null,
-          14,
+          28,
           null,
           1,
           1,
@@ -212,7 +242,7 @@
           1,
           null,
           null,
-          3,
+          9,
           null,
           1,
           1,
@@ -241,8 +271,8 @@
           2,
           2,
           2,
-          2,
-          2,
+          4,
+          4,
           null,
           null,
           null,
@@ -274,12 +304,11 @@
           null
         ]
       },
-      "/mnt/c/code/lunchy/app/models/category.rb": {
+      "/mnt/c/code/lunchy/app/models/order_item.rb": {
         "lines": [
           1,
-          1,
-          1,
           null,
+          1,
           1,
           null,
           1,
@@ -291,13 +320,13 @@
       "/mnt/c/code/lunchy/app/models/order.rb": {
         "lines": [
           1,
-          1,
+          21,
           null,
           null,
           null,
           null,
           1,
-          1,
+          10,
           null,
           null,
           null,
@@ -326,16 +355,24 @@
           1,
           1,
           1,
+          4,
+          null,
+          null,
+          null,
           1,
+          6,
+          6,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          0,
           0,
           null,
           null,
-          1,
-          0,
-          0,
-          0,
-          null,
-          null,
           null,
           null,
           1,
@@ -352,34 +389,10 @@
           1,
           null,
           null,
-          null
-        ]
-      },
-      "/mnt/c/code/lunchy/app/models/menu_item.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          null,
-          1,
-          1,
-          1,
-          null
-        ]
-      },
-      "/mnt/c/code/lunchy/app/models/category_item.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          null,
-          1,
-          1,
-          1,
           null
         ]
       }
     },
-    "timestamp": 1593863952
+    "timestamp": 1593881267
   }
 }

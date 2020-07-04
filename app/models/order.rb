@@ -13,9 +13,9 @@ class Order < ApplicationRecord
   validates :total_cost, presence: true
 
   before_save :calculate_total_cost
-  before_validation :add_default_menu, if: Proc.new { |order| order.menu.nil?}
+  before_validation :add_default_menu, if: proc { |order| order.menu.nil? }
 
-  # Returnes orders with specified created date 
+  # Returnes orders with specified created date
   def self.search_by_date(date)
     date = Date.parse(date)
     where(created_at: date.beginning_of_day..date.end_of_day)
@@ -27,7 +27,7 @@ class Order < ApplicationRecord
     find_each do |order|
       result += order.total_cost
     end
-    return result
+    result
   end
 
   # Changes victuals in order

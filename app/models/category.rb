@@ -1,4 +1,6 @@
 class Category < ApplicationRecord
+  default_scope { order('categories.name ASC')}
+
   has_many :category_items, dependent: :destroy
   has_many :victuals, through: :category_items
 

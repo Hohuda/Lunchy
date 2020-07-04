@@ -3,8 +3,8 @@ module SetAssociations
 
   module ClassMethods
     def get_class_and_association_names(target_class)
-      class_name = target_class.to_s.singularize.humanize
-      associations = class_name.pluralize.downcase
+      class_name = target_class.to_s.singularize.camelize
+      associations = class_name.pluralize.underscore
       { class_name: class_name, associations: associations }
     end
 

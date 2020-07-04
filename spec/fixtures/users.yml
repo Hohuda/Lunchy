@@ -5,7 +5,8 @@
 # below each fixture, per the syntax in the comments below
 #
 
-first_user: 
-  name: 'test user'
-  email: 'test@email.com'
+johny: 
+  name: 'Johny The Tester (ot toaster)'
+  email: 'dont_joke_on_me@email.com'
+  encrypted_password: <%= User.new.send(:password_digest, 'johny_bomb') %>
   

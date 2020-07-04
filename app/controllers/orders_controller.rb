@@ -42,7 +42,7 @@ class OrdersController < ApplicationController
  
   def update
     @order = Order.find(params[:id])
-    @order.change_victuals(params[:order][:victual_ids])
+    @order.set_victuals(params[:order][:victual_ids])
     if @order.save
       flash[:success] = "Order was successfuly updated!"
       redirect_to @order

@@ -53,4 +53,9 @@ RSpec.describe Order, type: :model do
       expect(order.menu.present?).to eq(true)
     end
   end
+
+  describe 'class methods' do
+    it 'should count total cost for orders relation'
+  end
+    
 end

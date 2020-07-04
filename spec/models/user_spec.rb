@@ -17,14 +17,15 @@ RSpec.describe User, type: :model do
   end
 
   describe 'validations' do
-    User.create(name: 'for validation', email: 'email@email.com', password: 'password')
+    User.create(name: 'test', email: 'test@email.com', password: 'password')
     it { should validate_presence_of(:name) }
     it { should validate_uniqueness_of(:name) }
   end
 
   describe 'admin' do
     it 'should give admin to first created user' do
-      expect(User.first.admin).to eq(true)
+      user = User.first
+      expect(user.admin).to eq(true)
     end
   end
 end

@@ -17,9 +17,7 @@ class User < ApplicationRecord
   end
 
   private
-
     def lunches_admin!
-      User.first.update_attribute(:admin, true)
+      User.first.update(admin: true)
     end
-
 end

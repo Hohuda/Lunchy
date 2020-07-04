@@ -11,14 +11,14 @@ class Menu < ApplicationRecord
   scope :today_menus, -> { where(created_at: Date.today.beginning_of_day..Date.today.end_of_day) }
   
   # Changes victuals in menu
-  def set_victuals(ids)
+  def set_victuals(*ids)
     ids.filter! { |i| i unless i.blank? }
-    comp = (categories.ids <=> ids)
+    comp = (victuals.ids <=> ids)
     if comp > 0
-      diff = categories.ids - ids
+      diff = victuals.ids - ids
       victuals.delete(Victual.find(diff))
     elsif comp < 0
-      diff = ids - categories.ids
+      diff = ids - victuals.ids
       victuals << Victual.find(diff)
     end
   end

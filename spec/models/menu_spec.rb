@@ -28,8 +28,18 @@ RSpec.describe Menu, type: :model do
   end
 
   describe 'victuals' do
+    fixtures :victuals
+
     it 'should set victuals by ids' do
-      User.create name: 'name', email: 'email@email.com', password: 'password'
+      first_victual = victuals(:first_course_victual)
+      main_victual = victuals(:main_course_victual)
+      menu = Menu.create
+      menu.set_victuals(Victual.ids)
+      expect(menu.victuals).to include(first_victual)
+      expect(menu.victuals).to include(main_victual)
+      expect(menu.victuals.count).to eq(Victual.count)
+      menu.set_victuals(main_victual.id)
+      expect(menu.victuals).not_to include(first_victual)
     end
   end
 end

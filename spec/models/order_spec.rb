@@ -19,6 +19,12 @@ RSpec.describe Order, type: :model do
     it { should have_db_index(:created_at) }
   end
 
+  describe 'validations' do
+    it { should validate_presence_of(:user_id) }
+    it { should validate_presence_of(:menu_id) }
+    it { should validate_presence_of(:total_cost) }
+  end
+  
   describe 'scope' do
     context 'default scope in descending order by created_at' do
       it 'newest should go first' do
@@ -27,6 +33,24 @@ RSpec.describe Order, type: :model do
         order = Order.create(user_id: user.id, menu_id: menu.id)
         expect(order).to eq(Order.first)
       end
+    end
+  end
+
+  describe 'callbacks' do
+    before(:example) do 
+      @user = User.take
+      @menu = Menu.create(name: 'menu')
+      @order = Order.create(user_id: @user.id, menu_id: @menu.id)
+    end
+
+    it 'should calculate total cost before save' do
+      @order.menu_items << @menu.menu_items
+      expect(@order.total_cost).to eq(@menu.victuals.sum('price'))
+    end
+
+    it 'should add default menu before validations' do
+      order = Order.create(user_id: @user.id)
+      expect(order.menu.present?).to eq(true)
     end
   end
 end

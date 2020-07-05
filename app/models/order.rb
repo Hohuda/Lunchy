@@ -22,11 +22,7 @@ class Order < ApplicationRecord
   def set_victuals(*ids)
     new_ids = menu.victual_ids & ids.flatten.map(&:to_i)
     sql = <<-SQL
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> tests
       SELECT menu_items.id
       FROM menus INNER JOIN menu_items
       ON menus.id = menu_items.menu_id

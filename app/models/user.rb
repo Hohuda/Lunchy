@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
-  after_create :lunches_admin!
+  before_save :lunches_admin!
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -18,6 +18,6 @@ class User < ApplicationRecord
 
   private
     def lunches_admin!
-      User.first.update(admin: true)
+      self.admin = true if self.id == 1
     end
 end

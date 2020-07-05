@@ -77,7 +77,7 @@ RSpec.describe Order, type: :model do
     let(:user) { users(:johny) }
     subject { Order.create(user_id: user.id) }
     it 'should submit order' do
-      expect{subject.submit}.to change{subject.editable}.from(true).to(false)
+      expect { subject.submit }.to change { subject.editable }.from(true).to(false)
     end
 
     it 'should habe editable?' do

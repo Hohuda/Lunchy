@@ -1,3 +1,7 @@
+first_order_item:
+  order: first_order
+  menu_item: drink_today_menu_item
+
 <% 10.times do |n| %>
 order_item<%= n %>:
   order: today_order_<%= n %>

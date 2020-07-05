@@ -11,6 +11,7 @@ johny:
   encrypted_password: <%= User.new.send(:password_digest, 'johny_bomb') %>
 
 first_user:
+  id: 1
   name: 'always first'
   email: 'first@gmail.com'
   encrypted_password: <%= User.new.send(:password_digest, 'password') %>

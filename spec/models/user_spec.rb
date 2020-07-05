@@ -25,7 +25,8 @@ RSpec.describe User, type: :model do
   describe 'admin' do
     it 'should give admin to first created user' do
       user = User.first
-      expect(user.admin).to eq(true)
+      user.save
+      expect(user.admin?).to eq(true)
     end
   end
 end

@@ -9,4 +9,8 @@ johny:
   name: 'Johny The Tester (ot toaster)'
   email: 'dont_joke_on_me@email.com'
   encrypted_password: <%= User.new.send(:password_digest, 'johny_bomb') %>
-  
+
+first_user:
+  name: 'always first'
+  email: 'first@gmail.com'
+  encrypted_password: <%= User.new.send(:password_digest, 'password') %>

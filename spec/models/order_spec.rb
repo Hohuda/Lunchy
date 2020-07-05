@@ -55,7 +55,33 @@ RSpec.describe Order, type: :model do
   end
 
   describe 'class methods' do
-    it 'should count total cost for orders relation'
+    fixtures :orders
+    it 'should count total cost for orders relation' do
+      total_income = Order.calculate_total_income
+      expect(total_income).to eq(Order.sum('total_cost'))
+    end
+
+    it 'should return orders searched by today' do
+      today = Date.today
+      yesterday = today - 1.day
+      orders = Order.search_by_date(today.to_s)
+      today_orders = Order.where(created_at: today.beginning_of_day..today.end_of_day)
+      yesterday_orders = Order.where(created_at: yesterday.beginning_of_day..yesterday.end_of_day)
+      expect(orders).to match_array(today_orders)
+      expect(orders).not_to match_array(yesterday_orders)
+    end
   end
-    
+
+  describe 'instance methods' do
+    fixtures :users
+    let(:user) { users(:johny) }
+    subject { Order.create(user_id: user.id) }
+    it 'should submit order' do
+      expect{subject.submit}.to change{subject.editable}.from(true).to(false)
+    end
+
+    it 'should habe editable?' do
+      expect(subject.editable?).to eq(subject.editable)
+    end
+  end
 end

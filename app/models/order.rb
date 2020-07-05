@@ -22,7 +22,11 @@ class Order < ApplicationRecord
   def set_victuals(*ids)
     new_ids = menu.victual_ids & ids.flatten.map(&:to_i)
     sql = <<-SQL
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> tests
       SELECT menu_items.id
       FROM menus INNER JOIN menu_items
       ON menus.id = menu_items.menu_id
@@ -42,19 +46,14 @@ class Order < ApplicationRecord
     where(created_at: date.beginning_of_day..date.end_of_day)
   end
   
-  # Count total cost of orders
-  def self.count_total_cost
-    result = 0
-    find_each do |order|
-      result += order.total_cost
-    end
-    result
+  # Count total income of orders relation (probably useless)
+  def self.calculate_total_income
+    self.sum('total_cost')
   end
   
   # Changes submit field
   def submit
-    self.editable = false
-    save
+    self.update(editable: false)
   end
 
   def editable?

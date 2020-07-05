@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
     unless params[:search].nil?
       @date = params[:search][:order_date]
       @orders = Order.search_by_date(@date).paginate(page: params[:page])
-      @total_cost = @orders.count_total_cost
+      @total_cost = @orders.calculate_total_income
       render 'for_day'
     else
       @orders = Order.paginate(page: params[:page])

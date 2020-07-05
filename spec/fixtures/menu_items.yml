@@ -1,18 +1,23 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-
-first_course_menu_item:
+first_course_today_menu_item:
   menu: today_menu
   victual: first_course_victual
 
-main_course_menu_item:
+main_course_today_menu_item:
   menu: today_menu
   victual: main_course_victual
 
-drink_menu_item:
+drink_today_menu_item:
   menu: today_menu
+  victual: drink_victual
+
+first_course_yesterday_menu_item:
+  menu: yesterday_menu
+  victual: first_course_victual
+
+main_course_yesterday_menu_item:
+  menu: yesterday_menu
+  victual: main_course_victual
+
+drink_yesterday_menu_item:
+  menu: yesterday_menu
   victual: drink_victual

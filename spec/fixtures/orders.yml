@@ -8,3 +8,13 @@
 first_order:
   menu: today_menu
   user: first_user
+
+<% 10.times do |n| %>
+today_order_<%= n %>:
+  menu: today_menu
+  user: johny
+
+yesterday_order_<%= n %>:
+  menu: yest_menu
+  user: first_user
+<% end %>

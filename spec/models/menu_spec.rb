@@ -42,4 +42,18 @@ RSpec.describe Menu, type: :model do
       expect(menu.victuals).not_to include(first_victual)
     end
   end
+
+  describe 'class methods' do
+    fixtures :menus
+   
+    it 'should return menus searched by today' do
+      today = Date.today
+      yesterday = today - 1.day
+      menus = Menu.search_by_date(today.to_s)
+      today_menus = Menu.where(created_at: today.beginning_of_day..today.end_of_day)
+      yesterday_menus = Menu.where(created_at: yesterday.beginning_of_day..yesterday.end_of_day)
+      expect(menus).to match_array(today_menus)
+      expect(menus).not_to match_array(yesterday_menus)
+    end
+  end
 end

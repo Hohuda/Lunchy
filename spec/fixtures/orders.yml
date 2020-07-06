@@ -15,6 +15,6 @@ today_order_<%= n %>:
   user: johny
 
 yesterday_order_<%= n %>:
-  menu: yest_menu
+  menu: yesterday_menu
   user: first_user
 <% end %>

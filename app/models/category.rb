@@ -9,4 +9,9 @@ class Category < ApplicationRecord
   scope :first_course, -> { find_by(name: 'First course') }
   scope :main_course, -> { find_by(name: 'Main course') }
   scope :drink, -> { find_by(name: 'Drink') }
+
+  def self.remove_by_id(*ids)
+    ids_to_remove = ids.flatten.select(&:present?).map(&:to_s).uniq
+    Category.delete(ids_to_remove)
+  end
 end

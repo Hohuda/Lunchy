@@ -27,5 +27,6 @@ Rails.application.routes.draw do
       get 'today'
     end
   end
-  resources :categories
+  resources :categories do
+  end
 end

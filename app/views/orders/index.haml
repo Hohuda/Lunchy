@@ -12,6 +12,8 @@
                 = f.date_field :order_date, as: :date, value: Time.now.strftime('%Y-%m-%d')
               .li.list-inline-item
                 = f.button :submit, "Search", class: 'btn btn-success'
+              .li.list-inline-item
+                = link_to 'Today orders', today_orders_path
 
 .container
   -if @orders.any?

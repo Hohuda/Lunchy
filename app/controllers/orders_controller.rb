@@ -69,6 +69,16 @@ class OrdersController < ApplicationController
     render 'show'
   end
 
+  def today
+    @orders = Order.today_orders
+    render json: @orders.to_json(include: [:victuals])
+
+    # respond_to do |format|
+    #   # format.html
+    #   # format.json { render json: @orders }
+    # end
+  end
+
   private
     def order_params
       params.require(:order).permit(:id, :user_id, :menu_id, victual_ids: [])

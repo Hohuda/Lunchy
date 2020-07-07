@@ -48,17 +48,18 @@ end
 
 # Add some victuals to menus
 puts "Start adding victuals to menus"
-first_courses = Victual.first_courses
-main_courses = Victual.main_courses
-drinks = Victual.drinks
 
-Menu.all.each do |menu|
-  firsts_amount = Random.rand(1..3)
-  mains_amount = Random.rand(1..3)
-  drinks_amount = Random.rand(1..3)
-  menu.victuals << first_courses.take(firsts_amount)
-  menu.victuals << main_courses.take(mains_amount)
-  menu.victuals << drinks.take(drinks_amount)
+first_courses_ids = first_course.victual_ids
+main_courses_ids = main_course.victual_ids
+drinks_ids = drink.victual_ids
+
+Menu.find_each do |menu|
+  firsts_amount = Random.rand(1..5)
+  mains_amount = Random.rand(1..5)
+  drinks_amount = Random.rand(1..5)
+  menu.set_victuals first_courses_ids.shuffle.take(firsts_amount)
+  menu.set_victuals main_courses_ids.shuffle.take(mains_amount)
+  menu.set_victuals drinks_ids.shuffle.take(drinks_amount)
 end
 
 # Seeding users
@@ -74,18 +75,18 @@ end
 
 # Seeding user orders
 puts "Start creating orders"
-User.all.each do |user|
+User.find_each do |user|
   Menu.all.each do |menu|
-    amount = Random.rand(1..3)
-    (0..amount).each do
+    amount = Random.rand(1..2)
+    amount.times do
       user.orders.create menu: menu, created_at: menu.created_at
     end
   end
 end
 
 # Seeding ordered victuals
-p "Start adding victuals to orders"
-Order.all.each do |order|                                 # <<<<<<<<<<<<<<------------ Change this to seed faster.
+puts "Start adding victuals to orders"
+Order.find_each do |order|                                 # <<<<<<<<<<<<<<------------ Change this to seed faster.
   ids = order.menu.victual_ids
   amount = Random.rand(1..ids.count)
   order.set_victuals ids.shuffle.take(amount)

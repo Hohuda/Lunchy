@@ -18,6 +18,8 @@ class Order < ApplicationRecord
   include SetAssociations
   create_set_association_method_for(MenuItem)
 
+  scope :today_orders, -> { where(created_at: Date.today.beginning_of_day..Date.today.end_of_day) }
+
   # Wrapper for set_menu_items to create set_victuals
   def set_victuals(*ids)
     new_ids = menu.victual_ids & ids.flatten.map(&:to_i)
@@ -34,6 +36,7 @@ class Order < ApplicationRecord
     query_result = ActiveRecord::Base.connection.execute(sql)
     new_ids = query_result.values.flatten
     set_menu_items(new_ids)
+    save
   end
 
   # Returnes orders with specified created date

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     end
     collection do
       get 'for_user', as: :user
+      get 'today'
     end
   end
   resources :menus do

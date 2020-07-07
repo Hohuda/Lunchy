@@ -1,5 +1,7 @@
 class MenusController < ApplicationController
 
+  before_action :is_user_admin?, except: [:today, :index, :show]
+
   def index
     unless params[:search].nil?
       @date = params[:search][:order_date]
@@ -63,4 +65,9 @@ class MenusController < ApplicationController
         params.require(:menu).permit(:id, :name)
     end
 
+    def is_user_admin?
+      unless current_user.admin?
+        redirect_to root_path
+      end
+    end
 end

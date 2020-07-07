@@ -15,16 +15,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    super
+  end
 
   # PUT /resource
-  # def update
-  #   super do |user|
-  #     redirect_to user and return
-  #   end
-  # end
+  def update
+    super do |user|
+      redirect_to user and return
+    end
+  end
 
   # DELETE /resource
   # def destroy

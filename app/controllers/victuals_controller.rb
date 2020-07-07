@@ -1,5 +1,7 @@
 class VictualsController < ApplicationController
 
+  before_action :is_user_admin?
+
   def index
     @victuals = Victual.order(:name).paginate(page: params[:page])
   end
@@ -57,7 +59,15 @@ class VictualsController < ApplicationController
     def victual_params
       params.require(:victual).permit(:id, :name, :price, category_ids: [], avatar: [])
     end
+
     def victual_creating_params
       params.require(:victual).permit(:id, :name, :price)
     end
+
+    def is_user_admin?
+      unless current_user.admin?
+        redirect_to root_path
+      end
+    end
+
 end

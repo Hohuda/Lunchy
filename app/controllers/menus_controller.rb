@@ -64,10 +64,4 @@ class MenusController < ApplicationController
     def menu_creating_params
         params.require(:menu).permit(:id, :name)
     end
-
-    def is_user_admin?
-      unless current_user.admin?
-        redirect_to root_path
-      end
-    end
 end

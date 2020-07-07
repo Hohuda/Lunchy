@@ -16,6 +16,8 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    
+
   private 
   
     def layout_by_resource
@@ -25,7 +27,10 @@ class ApplicationController < ActionController::Base
         'application'
       end
     end
-
-
-
+    
+    def is_user_admin?
+      unless current_user.admin?
+        redirect_to root_path
+      end
+    end
 end

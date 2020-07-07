@@ -63,11 +63,4 @@ class VictualsController < ApplicationController
     def victual_creating_params
       params.require(:victual).permit(:id, :name, :price)
     end
-
-    def is_user_admin?
-      unless current_user.admin?
-        redirect_to root_path
-      end
-    end
-
 end

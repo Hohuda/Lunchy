@@ -48,18 +48,18 @@ end
 
 # Add some victuals to menus
 puts "Start adding victuals to menus"
-
-first_courses_ids = first_course.victual_ids
-main_courses_ids = main_course.victual_ids
-drinks_ids = drink.victual_ids
-
 Menu.find_each do |menu|
   firsts_amount = Random.rand(1..5)
   mains_amount = Random.rand(1..5)
   drinks_amount = Random.rand(1..5)
-  menu.set_victuals first_courses_ids.shuffle.take(firsts_amount)
-  menu.set_victuals main_courses_ids.shuffle.take(mains_amount)
-  menu.set_victuals drinks_ids.shuffle.take(drinks_amount)
+
+  first_courses_ids = first_course.victual_ids.shuffle.take(firsts_amount)
+  main_courses_ids = main_course.victual_ids.shuffle.take(mains_amount)
+  drinks_ids = drink.victual_ids.shuffle.take(drinks_amount)
+
+  victuals_ids = first_courses_ids + main_courses_ids + drinks_ids
+
+  menu.set_victuals victuals_ids
 end
 
 # Seeding users

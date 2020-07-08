@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   layout :layout_by_resource
 
   protected 
-
     def configure_permitted_parameters
       devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :company])
       devise_parameter_sanitizer.permit(:account_update) do |edit_params|
@@ -16,10 +15,7 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    
-
   private 
-  
     def layout_by_resource
       if devise_controller?
         'devise'

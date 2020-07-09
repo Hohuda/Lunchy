@@ -1,9 +1,10 @@
 class MenusController < ApplicationController
 
   before_action :is_user_admin?, except: [:today, :index, :show]
+  before_action :load_menu, only: [:edit, :show, :update, :destroy]
 
   def index
-    unless params[:search].nil?
+    if params[:search].present?
       @date = params[:search][:order_date]
       @menus = Menu.search_by_date(@date).paginate(page: params[:page])
       render 'for_day'
@@ -13,7 +14,6 @@ class MenusController < ApplicationController
   end
   
   def show
-    @menu = Menu.find(params[:id])
   end
   
   def new
@@ -21,7 +21,6 @@ class MenusController < ApplicationController
   end
   
   def edit
-    @menu = Menu.find(params[:id])
   end
   
   def create
@@ -35,7 +34,6 @@ class MenusController < ApplicationController
   end
   
   def update
-    @menu = Menu.find(params[:id])
     @menu.set_victuals(params[:menu][:victual_ids])
     if @menu.update(menu_params)
       redirect_to @menu
@@ -45,7 +43,6 @@ class MenusController < ApplicationController
   end
   
   def destroy
-    @menu = Menu.find(params[:id])
     @menu.destroy
     
     redirect_to menus_path
@@ -57,11 +54,16 @@ class MenusController < ApplicationController
   end
   
   private
-    def menu_params
-      params.require(:menu).permit(:id, :name, victual_ids: [])
-    end
-    
-    def menu_creating_params
-        params.require(:menu).permit(:id, :name)
-    end
+
+  def menu_params
+    params.require(:menu).permit(:id, :name, victual_ids: [])
+  end
+  
+  def menu_creating_params
+    params.require(:menu).permit(:id, :name)
+  end
+
+  def load_menu
+    @menu = Menu.find(params[:id])
+  end
 end

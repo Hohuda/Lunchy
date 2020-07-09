@@ -1,7 +1,8 @@
 class OrdersController < ApplicationController
+  before_action :load_order, only: [:edit, :update, :show, :destroy, :submit]
 
   def index
-    unless params[:search].nil?
+    if params[:search].present?
       @date = params[:search][:order_date]
       @orders = Order.search_by_date(@date).paginate(page: params[:page])
       @total_cost = @orders.calculate_total_income
@@ -18,7 +19,6 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find(params[:id])
   end
 
   def new
@@ -26,7 +26,6 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    @order = Order.find(params[:id])
   end
   
   def create
@@ -41,7 +40,6 @@ class OrdersController < ApplicationController
   end
  
   def update
-    @order = Order.find(params[:id])
     @order.set_victuals(params[:order][:victual_ids])
     if @order.save
       flash[:success] = "Order was successfuly updated!"
@@ -53,7 +51,6 @@ class OrdersController < ApplicationController
   end
  
   def destroy
-    @order = Order.find(params[:id])
     @order.destroy
     
     if current_user.admin?
@@ -64,7 +61,6 @@ class OrdersController < ApplicationController
   end
  
   def submit 
-    @order = Order.find(params[:id])
     @order.submit
     render 'show'
   end
@@ -72,16 +68,15 @@ class OrdersController < ApplicationController
   def today
     @orders = Order.today_orders
     render json: @orders.to_json(include: [:victuals])
-
-    # respond_to do |format|
-    #   # format.html
-    #   # format.json { render json: @orders }
-    # end
   end
 
   private
-    def order_params
-      params.require(:order).permit(:id, :user_id, :menu_id, victual_ids: [])
-    end
 
+  def order_params
+    params.require(:order).permit(:id, :user_id, :menu_id, victual_ids: [])
+  end
+
+  def load_order
+    @order = Order.find(params[:id])
+  end
 end

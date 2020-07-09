@@ -1,10 +1,11 @@
 class CategoriesController < ApplicationController
+  before_action :load_category, only: [:edit, :show]
+
   def index
     @categories = Category.all
   end
  
   def show
-    @category = Category.find(params[:id])
     @victuals = @category.victuals.paginate(page: params[:page])
     render 'victuals/index'
   end
@@ -14,7 +15,6 @@ class CategoriesController < ApplicationController
   end
  
   def edit
-    @category = Category.find(params[:id])
   end
  
   def create
@@ -37,7 +37,12 @@ class CategoriesController < ApplicationController
   end
 
   private
-    def categories_params
-      params.require(:category).permit(:id, :name)
-    end
+
+  def categories_params
+    params.require(:category).permit(:id, :name)
+  end
+
+  def load_category
+    @category = Category.find(params[:id])
+  end
 end

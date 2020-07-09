@@ -40,6 +40,7 @@ group :development, :test do
   gem 'rspec-rails'
   # Adds support for Capybara system testing 
   gem 'capybara', '>= 2.15'
+  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -60,6 +61,8 @@ group :test do
   gem 'shoulda-matchers'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+  # Database cleaner
+  # gem 'database_cleaner-active_record'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

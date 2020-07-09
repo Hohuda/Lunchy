@@ -16,17 +16,18 @@ class ApplicationController < ActionController::Base
     end
 
   private 
-    def layout_by_resource
-      if devise_controller?
-        'devise'
-      else
-        'application'
-      end
+  
+  def layout_by_resource
+    if devise_controller?
+      'devise'
+    else
+      'application'
     end
-    
-    def is_user_admin?
-      unless current_user.admin?
-        redirect_to root_path
-      end
+  end
+  
+  def is_user_admin?
+    unless current_user.admin?
+      redirect_to root_path
     end
+  end
 end

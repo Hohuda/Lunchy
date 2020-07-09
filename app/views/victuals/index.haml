@@ -1,4 +1,4 @@
--unless @category.nil?
+-if @category.present?
   %h5.text-center
     = render @category
 

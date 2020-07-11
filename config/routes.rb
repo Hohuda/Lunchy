@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get 'categories/delete'  # Not implemented 
 
   resources :victuals
-  resources :users
+  resources :users, only: [:index, :show]
   resources :orders do
     member do 
       get 'submit'

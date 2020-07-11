@@ -4,6 +4,12 @@ class UsersController < ApplicationController
 
   def index
     @users = User.order(:name).paginate(page: params[:page])
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: { data: @users }, status: :ok, message: 'success'
+      end
+    end
   end
  
   def show

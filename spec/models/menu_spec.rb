@@ -16,7 +16,7 @@ RSpec.describe Menu, type: :model do
   describe 'scopes' do
     it 'should return today menus' do
       today_menu = create(:menu)
-      yesterday_menu = create(:menu).update
+      yesterday_menu = create(:menu, created_at: Date.yesterday)
       expect(Menu.today_menus).to include(today_menu)
       expect(Menu.today_menus).not_to include(yesterday_menu)
     end
@@ -33,7 +33,7 @@ RSpec.describe Menu, type: :model do
     it 'should set victuals by ids' do
       menu = Menu.create
       menu.set_victuals(ids)
-      expect(menu.victual_ids).to contain_exactly(ids)
+      expect(menu.victual_ids).to match(ids)
       menu.set_victuals(ids.first)
       expect(menu.victual_ids).to contain_exactly(ids.first)
     end
@@ -43,8 +43,8 @@ RSpec.describe Menu, type: :model do
     it 'should return menus searched by today' do
       today_menus = create_list(:menu, 3)
       yesterday_menus = create_list(:menu, 3, created_at: Date.yesterday)
-      expect(Menu.today).to match_array(today_menus)
-      expect(menus).not_to match_array(yesterday_menus)
+      expect(Menu.today_menus).to match_array(today_menus)
+      expect(Menu.today_menus).not_to match_array(yesterday_menus)
     end
   end
 end

@@ -11,7 +11,7 @@ RSpec.describe OrderItem, type: :model do
       menu.victuals << victual
       @user = create(:user)
     end
-
+    
     context 'when try to destroy parent model' do
       before(:each) do
         @order = create(:order, user: @user)

@@ -16,17 +16,19 @@ RSpec.describe User, type: :model do
     it { should have_db_column(:avatar).of_type(:string) }
   end
 
-  describe 'validations' do
-    User.create(name: 'test', email: 'test@email.com', password: 'password')
-    it { should validate_presence_of(:name) }
-    it { should validate_uniqueness_of(:name) }
-  end
-
   describe 'admin' do
     it 'should give admin to first created user' do
-      user = User.first
+      user = create(:user)
       user.save
       expect(user.admin?).to eq(true)
     end
+  end
+
+  describe 'validations' do
+    it { should validate_presence_of(:name) }
+    it {
+      create(:user)
+      should validate_uniqueness_of(:name)
+    }
   end
 end

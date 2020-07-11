@@ -25,64 +25,78 @@ RSpec.describe Order, type: :model do
     it { should validate_presence_of(:total_cost) }
   end
   
-  describe 'scope' do
-    context 'default scope in descending order by created_at' do
-      it 'newest should go first' do
-        user = User.take
-        menu = Menu.create(name: 'menu')
-        order = Order.create(user_id: user.id, menu_id: menu.id)
-        expect(order).to eq(Order.first)
-      end
+  describe 'default scope' do
+    it 'newest should go first' do
+      user = create(:user)
+      menu = create(:menu)
+      create(:order, user: user, menu: menu)
+      second_order = create(:order, user: user)
+      expect(second_order).to eq(Order.first)
     end
   end
 
   describe 'callbacks' do
-    before(:example) do 
-      @user = User.take
-      @menu = Menu.create(name: 'menu')
-      @order = Order.create(user_id: @user.id, menu_id: @menu.id)
+    before(:each) do
+      @user = create(:user)
+      @menu = create_menu_with_victuals
     end
-
+    
     it 'should calculate total cost before save' do
-      @order.menu_items << @menu.menu_items
-      expect(@order.total_cost).to eq(@menu.victuals.sum('price'))
+      order = create(:order, user: @user, menu: @menu)
+      order.menu_items << @menu.menu_items
+      order.save
+      expect(order.total_cost).to eq(@menu.victuals.sum('price'))
     end
 
     it 'should add default menu before validations' do
-      order = Order.create(user_id: @user.id)
+      order = create(:order, user: @user)
       expect(order.menu.present?).to eq(true)
     end
   end
 
   describe 'class methods' do
-    fixtures :orders
+    before(:each) do
+      @user = create(:user)
+      @menu = create_menu_with_victuals
+    end
 
     it 'should count total cost for orders relation' do
+      create_list(:order, 5, user: @user, menu: @menu)
       total_income = Order.calculate_total_income
       expect(total_income).to eq(Order.sum('total_cost'))
     end
 
     it 'should return orders searched by today' do
-      today = Date.today
-      yesterday = today - 1.day
-      orders = Order.search_by_date(today.to_s)
-      today_orders = Order.where(created_at: today.beginning_of_day..today.end_of_day)
-      yesterday_orders = Order.where(created_at: yesterday.beginning_of_day..yesterday.end_of_day)
+      today_orders = create_list(:order, 5, user: @user, menu: @menu)
+      yesterday_orders = create_list(:order, 5, user: @user, menu: @menu, created_at: Date.yesterday)
+      orders = Order.search_by_date(Date.today.to_s)
       expect(orders).to match_array(today_orders)
       expect(orders).not_to match_array(yesterday_orders)
     end
   end
 
   describe 'instance methods' do
-    fixtures :users
-    let(:user) { users(:johny) }
-    subject { Order.create(user_id: user.id) }
+    before(:each) do
+      @user = create(:user)
+      @menu = create_menu_with_victuals
+    end
+    
     it 'should submit order' do
-      expect { subject.submit }.to change { subject.editable }.from(true).to(false)
+      order = create(:order, user: @user, menu: @menu)
+      expect { order.submit }.to change { order.editable }.from(true).to(false)
     end
 
-    it 'should habe editable?' do
-      expect(subject.editable?).to eq(subject.editable)
+    it 'should have editable?' do
+      order = create(:order, user: @user, menu: @menu)
+      expect(order.editable?).to eq(order.editable)
+    end
+
+    it 'should set victuals by id' do
+      order = create(:order, user: @user, menu: @menu)
+      order.set_victuals(@menu.victual_ids)
+      expect(order.reload.victuals).to match(@menu.victuals)
+      order.set_victuals(@menu.victual_ids.first)
+      expect(order.reload.victual_ids).to contain_exactly(@menu.victual_ids.first)
     end
   end
 end

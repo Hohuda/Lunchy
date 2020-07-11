@@ -14,33 +14,32 @@ RSpec.describe Victual, type: :model do
   end
   
   describe 'validations' do
-    Victual.create name: 'to resolve PG::NotNullViolation', price: 9.99
-    
     it { should validate_presence_of(:name) }
-    it { should validate_uniqueness_of(:name).scoped_to(:price) }
     it { should validate_presence_of(:price) }
     it { should validate_numericality_of(:price).is_greater_than_or_equal_to(0.1).is_less_than_or_equal_to(100) }
+
+    it {
+      create(:victual)
+      should validate_uniqueness_of(:name).scoped_to(:price)
+    }
   end
   
   describe 'categories' do
-    fixtures :categories
-    
     before(:each) do
-      @first = categories(:first_course)
-      @main = categories(:main_course)
-      @drink = categories(:drink)
+      @categories = create_list(:category, 5)
     end
     
-    let(:victual) { Victual.create(name: 'name', price: 1) }
-    subject { victual.categories }
+    let(:victual) { create(:victual) }
     
     it 'should change categories by ids' do
-      is_expected.not_to include(@first)
+      def ids
+        victual.category_ids
+      end
+      expect(ids).not_to include(Category.ids)
       victual.set_categories(Category.ids)
-      is_expected.to include(@first)
-      victual.set_categories(@drink.id)
-      is_expected.not_to include(@first)
-      is_expected.to include(@drink)
+      expect(ids).to match(Category.ids)
+      victual.set_categories(Category.ids.first)
+      expect(ids).to contain_exactly(Category.ids.first)
     end
   end
 

@@ -10,32 +10,25 @@ RSpec.describe Category, type: :model do
     it { should have_db_column(:name).of_type(:string).with_options(null: false, unique: true) }
   end
 
-  describe 'validations' do 
-    Category.create name: 'to resolve PG not null constraint error'
-
+  describe 'validations' do
+    
     it { should validate_presence_of(:name) }
-    it { should validate_uniqueness_of(:name).case_insensitive }
+    it {
+      create(:category)
+      should validate_uniqueness_of(:name).case_insensitive
+    }
   end
 
   describe 'scopes' do
-    fixtures :categories
+    default_categories = %w[first_course main_course drink]
 
-    context 'first course category scope' do
-      subject { Category.first_course }
+    default_categories.each do |category_name|
+      it "should have #{category_name} scope" do
+        category = create(:category, name: category_name.humanize)
+        scope = Category.public_send(category_name)
 
-      it { is_expected.to eq(categories(:first_course)) }
-    end
-
-    context 'main course category scope' do
-      subject { Category.main_course }
-
-      it { is_expected.to eq(categories(:main_course)) }
-    end
-
-    context 'drink category scope' do
-      subject { Category.drink }
-
-      it { is_expected.to eq(categories(:drink)) }
+        expect(scope).to eq(category)
+      end
     end
   end
 end

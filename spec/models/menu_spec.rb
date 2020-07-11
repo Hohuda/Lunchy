@@ -15,10 +15,10 @@ RSpec.describe Menu, type: :model do
 
   describe 'scopes' do
     it 'should return today menus' do
-      today_menu = Menu.create(name: 'for today')
-      yest_menu = Menu.create(name: 'for yesterday', created_at: Time.zone.now - 1.day)
+      today_menu = create(:menu)
+      yesterday_menu = create(:menu).update
       expect(Menu.today_menus).to include(today_menu)
-      expect(Menu.today_menus).not_to include(yest_menu)
+      expect(Menu.today_menus).not_to include(yesterday_menu)
     end
 
     it 'should be ordered newest first' do
@@ -28,31 +28,22 @@ RSpec.describe Menu, type: :model do
   end
 
   describe 'victuals' do
-    fixtures :victuals
-
+    let(:ids) { create_list(:victual, 5).map(&:id) }
+    
     it 'should set victuals by ids' do
-      first_victual = victuals(:first_course_victual)
-      main_victual = victuals(:main_course_victual)
       menu = Menu.create
-      menu.set_victuals(Victual.ids)
-      expect(menu.victuals).to include(first_victual)
-      expect(menu.victuals).to include(main_victual)
-      expect(menu.victuals.count).to eq(Victual.count)
-      menu.set_victuals(main_victual.id)
-      expect(menu.victuals).not_to include(first_victual)
+      menu.set_victuals(ids)
+      expect(menu.victual_ids).to contain_exactly(ids)
+      menu.set_victuals(ids.first)
+      expect(menu.victual_ids).to contain_exactly(ids.first)
     end
   end
 
   describe 'class methods' do
-    fixtures :menus
-   
     it 'should return menus searched by today' do
-      today = Date.today
-      yesterday = today - 1.day
-      menus = Menu.search_by_date(today.to_s)
-      today_menus = Menu.where(created_at: today.beginning_of_day..today.end_of_day)
-      yesterday_menus = Menu.where(created_at: yesterday.beginning_of_day..yesterday.end_of_day)
-      expect(menus).to match_array(today_menus)
+      today_menus = create_list(:menu, 3)
+      yesterday_menus = create_list(:menu, 3, created_at: Date.yesterday)
+      expect(Menu.today).to match_array(today_menus)
       expect(menus).not_to match_array(yesterday_menus)
     end
   end

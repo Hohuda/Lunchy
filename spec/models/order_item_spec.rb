@@ -2,15 +2,30 @@ require 'rails_helper'
 
 RSpec.describe OrderItem, type: :model do
   describe 'associations' do
-    fixtures :orders, :menu_items
-
     it { should belong_to(:order) }
     it { should belong_to(:menu_item) }
 
-    it 'should be destroyed when parent order destroyed' do
-      order = orders(:first_order)
-      order.order_items.create(menu_item: menu_items(:drink_today_menu_item))
-      expect { order.destroy }.to change { OrderItem.count }.by(-1)
+    before(:context) do
+      menu = create(:menu)
+      victual = create(:victual)
+      menu.victuals << victual
+      @user = create(:user)
+    end
+
+    context 'when try to destroy parent model' do
+      before(:each) do
+        @order = create(:order, user: @user)
+        @menu_item = MenuItem.take
+        @order.menu_items << @menu_item
+      end
+
+      it 'should depend on Order destroying' do
+        expect { @order.destroy }.to change { OrderItem.count }.by(-1)
+      end
+
+      it 'should depend on MenuItem destroying' do
+        expect { @menu_item.destroy }.to change { OrderItem.count }.by(-1)
+      end
     end
   end
 

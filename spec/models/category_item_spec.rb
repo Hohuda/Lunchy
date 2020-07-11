@@ -6,9 +6,9 @@ RSpec.describe CategoryItem, type: :model do
     it { should belong_to(:category) }
 
     context 'when try to destroy parent model' do
-      before(:each) do 
-        @victual = Victual.create(name: 'name', price: 1)
-        @category = Category.create(name: 'category')
+      before(:each) do
+        @victual = create(:victual)
+        @category = create(:category)
         @victual.categories << @category
       end
 

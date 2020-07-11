@@ -4,6 +4,8 @@ RSpec.describe Victual, type: :model do
   describe 'associations' do
     it { should have_many(:category_items).class_name('CategoryItem') }
     it { should have_many(:categories).class_name('Category') }
+    it { should have_many(:menu_items).class_name('MenuItem') }
+    it { should have_many(:menus).class_name('Menu') }
   end
   
   describe 'db columns' do

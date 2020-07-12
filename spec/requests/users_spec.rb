@@ -11,7 +11,7 @@ RSpec.describe "Users", type: :request do
   
     it 'should get index page' do
       get users_path(format: :json)
-      expect(response.body).to have_http_status(:ok)
+      expect(response).to have_http_status(:ok)
     end
   end
 

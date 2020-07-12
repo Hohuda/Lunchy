@@ -13,8 +13,6 @@ SimpleCov.start 'rails' do
   # This directory has almost not changed devise controllers
   add_filter '/app/controllers/users/'
 
-  # add_group 'Controllers', 'app/controllers'
-  # add_group 'Models', 'app/models'
-  # add_group 'Helpers', 'app/helpers'
-  # add_group 'Mailers', 'app/mailers'
+  # Thid directory have policies which tested in integration tests.
+  add_filter '/app/policies'
 end

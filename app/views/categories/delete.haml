@@ -2,7 +2,7 @@
   .col-6
     %h2.text-center Delete Categories
     .text-center
-      = simple_form_for(:category_delete, method: :delete) do |f|
+      = simple_form_for(:category_delete, url: destroy_chosen_categories_url, method: :post) do |f|
         = f.error_notification
         .form-inputs
           = f.input :category_ids, as: :check_boxes, collection: Category.all, label_method: :name, label: 'Choose categories to delete'

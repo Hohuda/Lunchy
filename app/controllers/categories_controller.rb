@@ -14,9 +14,6 @@ class CategoriesController < ApplicationController
     @category = Category.new
   end
  
-  def edit
-  end
- 
   def create
     @category = Category.new(categories_params)
  
@@ -27,9 +24,7 @@ class CategoriesController < ApplicationController
     end
   end
  
-  def update
-    render 'index'
-  end
+  def delete; end
 
   def destroy
     Category.remove_by_id(params[:category_delete][:category_ids])

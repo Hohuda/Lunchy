@@ -1,5 +1,5 @@
 class VictualsController < ApplicationController
-  before_action :is_user_admin?
+  # before_action :is_user_admin?
   before_action :load_victual, only: [:edit, :update, :show, :destroy]
 
   def index

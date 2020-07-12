@@ -7,13 +7,13 @@ Rails.application.routes.draw do
     sessions: 'users/sessions', 
     passwords: 'users/passwords',
     unlocks: 'users/unlocks',
-    confirmations: 'users/confirmations',
+    confirmations: 'users/confirmations'
   }
   
-  get 'categories/delete'  # Not implemented 
-
   resources :victuals
+
   resources :users, only: [:index, :show]
+
   resources :orders do
     member do 
       get 'submit'
@@ -23,11 +23,18 @@ Rails.application.routes.draw do
       get 'today'
     end
   end
+
   resources :menus do
     collection do
       get 'today'
     end
   end
-  resources :categories do
+
+  resources :categories, except: [:edit, :update, :destroy] do
+    collection do
+      get 'delete'
+    end
   end
+  
+  post '/destroy_chosen_categories', to: 'categories#destroy'
 end

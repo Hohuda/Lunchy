@@ -1,6 +1,6 @@
 class MenusController < ApplicationController
 
-  before_action :is_user_admin?, except: [:today, :index, :show]
+  # before_action :is_user_admin?, except: [:today, :index, :show]
   before_action :load_menu, only: [:edit, :show, :update, :destroy]
 
   def index

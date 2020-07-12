@@ -1,20 +1,20 @@
 class VictualsController < ApplicationController
   # before_action :is_user_admin?
   before_action :load_victual, only: [:edit, :update, :show, :destroy]
+  before_action :is_user_admin_universal_policy, except: [:index, :show]
 
   def index
-    @victuals = Victual.order(:name).paginate(page: params[:page])
+    victuals, @category = Victual.return_victuals_for_index(params)
+    @victuals = victuals.paginate(page: params[:page])
   end
  
-  def show
-  end
+  def show; end
  
   def new
     @victual = Victual.new
   end
  
-  def edit
-  end
+  def edit; end
  
   def create
     @victual = Victual.new(victual_creating_params)

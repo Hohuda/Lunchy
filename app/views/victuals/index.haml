@@ -1,6 +1,6 @@
 -if @category.present?
   %h5.text-center
-    = render @category
+    = render partial: '/categories/category', locals: { category: @category }
 
 .container
   .row.mb-3
@@ -9,7 +9,8 @@
       %h1.text-center
         Victuals
     .col-3.text-right.mt-3
-      = link_to 'Add New', new_victual_path, class: 'btn btn-success'
+      -if current_user.admin?
+        = link_to 'Add New', new_victual_path, class: 'btn btn-success'
 
 -unless @victuals.empty?
   .container

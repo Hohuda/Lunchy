@@ -19,7 +19,7 @@ RSpec.describe "Categories", type: :request do
 
     it 'should get show path' do
       get category_path(category)
-      expect(response).to have_http_status(:ok)
+      expect(response).to redirect_to(victuals_path(category_id: category.id))
     end
   end
 

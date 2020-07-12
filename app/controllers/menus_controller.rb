@@ -2,7 +2,8 @@ class MenusController < ApplicationController
 
   # before_action :is_user_admin?, except: [:today, :index, :show]
   before_action :load_menu, only: [:edit, :show, :update, :destroy]
-
+  before_action :is_user_admin_universal_policy, except: [:today, :show]
+  
   def index
     if params[:search].present?
       @date = params[:search][:order_date]
@@ -13,15 +14,13 @@ class MenusController < ApplicationController
     end
   end
   
-  def show
-  end
+  def show; end
   
   def new
     @menu = Menu.new
   end
   
-  def edit
-  end
+  def edit; end
   
   def create
     @menu = Menu.new(menu_creating_params)

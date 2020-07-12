@@ -19,17 +19,22 @@ class OrdersController < ApplicationController
   end
 
   def show
+    @order = Order.find(params[:id])
+    authorize @order
   end
 
   def new
     @order = Order.new
+    authorize @order
   end
 
   def edit
+    authorize @order
   end
   
   def create
     @order = Order.new(order_params)
+    authorize @order
     if @order.save
       flash[:success] = "Order was successfuly created!"
       redirect_to @order
@@ -39,6 +44,7 @@ class OrdersController < ApplicationController
   end
  
   def update
+    authorize @order
     @order.set_victuals(params[:order][:victual_ids])
     if @order.save
       flash[:success] = "Order was successfuly updated!"

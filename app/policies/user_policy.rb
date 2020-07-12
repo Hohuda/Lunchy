@@ -1,11 +1,9 @@
 class UserPolicy < ApplicationPolicy
-  # class Scope < Scope
-  #   def resolve
-  #     if user.admin?
-  #       scope.all
-  #     end
-  #   end
-  # end
+  class Scope < Scope
+    def resolve
+      scope.all
+    end
+  end
 
   def index?
     user.admin?

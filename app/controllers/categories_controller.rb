@@ -1,13 +1,13 @@
 class CategoriesController < ApplicationController
   before_action :load_category, only: [:edit, :show]
+  before_action :is_user_admin_universal_policy, except: :show
 
   def index
     @categories = Category.all
   end
  
   def show
-    @victuals = @category.victuals.paginate(page: params[:page])
-    render 'victuals/index'
+    redirect_to victuals_path(category_id: @category.id)
   end
  
   def new

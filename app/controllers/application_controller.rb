@@ -32,4 +32,8 @@ class ApplicationController < ActionController::Base
   def not_authorized
     redirect_back(fallback_location: root_path)
   end
+
+  def is_user_admin_universal_policy
+    redirect_back(fallback_location: root_path) unless current_user&.admin?
+  end
 end

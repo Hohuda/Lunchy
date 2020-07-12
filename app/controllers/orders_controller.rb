@@ -29,8 +29,7 @@ class OrdersController < ApplicationController
   end
   
   def create
-    @user = User.find(params[:order][:user_id])
-    @order = @user.orders.create(menu: Menu.find(params[:order][:menu_id]))
+    @order = Order.new(order_params)
     if @order.save
       flash[:success] = "Order was successfuly created!"
       redirect_to @order

@@ -57,7 +57,7 @@ RSpec.describe "Menus", type: :request do
     subject { patch menu_path(menu), params: params }
 
     it 'should update menu' do
-      expect { subject }.to change { menu.reload.updated_at } 
+      expect { subject }.to change { menu.reload.updated_at }
     end
   end
 

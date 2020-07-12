@@ -14,5 +14,5 @@ SimpleCov.start 'rails' do
   add_filter '/app/controllers/users/'
 
   # Thid directory have policies which tested in integration tests.
-  add_filter '/app/policies'
+  # add_filter '/app/policies'
 end

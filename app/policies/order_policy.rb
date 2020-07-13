@@ -13,10 +13,6 @@ class OrderPolicy < ApplicationPolicy
     user.admin? || user.id == record.user_id
   end
 
-  def new?
-    user.admin? || user.id == record.user_id
-  end
-
   def edit?
     user.admin? || user.id == record.user_id
   end

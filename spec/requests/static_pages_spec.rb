@@ -2,20 +2,41 @@ require 'rails_helper'
 
 RSpec.describe "StaticPages", type: :request do
   let(:admin) { create(:admin) }
+  let(:user) { create(:user) }
 
-  before(:each) do
-    sign_in(admin)
-  end
+  describe '#home root' do
+    it 'should get home page if admin' do
+      sign_in(admin)
+      get root_path
+      expect(response).to have_http_status(:ok)
+    end
 
-  describe '#home' do
-    it 'should get home page that is root' do
+    it 'should get home page if user' do
+      sign_in(user)
+      get root_path
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'should get home page if not authorized' do
       get root_path
       expect(response).to have_http_status(:ok)
     end
   end
 
   describe '#contact' do
-    it 'should get contact page' do
+    it 'should get home page if admin' do
+      sign_in(admin)
+      get contact_path
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'should get home page if user' do
+      sign_in(user)
+      get contact_path
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'should get home page if not authorized' do
       get contact_path
       expect(response).to have_http_status(:ok)
     end

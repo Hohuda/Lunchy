@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   before_action :load_order, only: [:edit, :update, :show, :destroy, :submit]
 
   def index
+    authorize Order
     if params[:search].present?
       @date = params[:search][:order_date]
       @orders = Order.search_by_date(@date).paginate(page: params[:page])
@@ -25,7 +26,6 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
-    authorize @order
   end
 
   def edit
@@ -56,6 +56,7 @@ class OrdersController < ApplicationController
   end
  
   def destroy
+    authorize @order
     @order.destroy
     
     if current_user.admin?

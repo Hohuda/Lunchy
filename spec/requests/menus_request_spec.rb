@@ -92,7 +92,7 @@ RSpec.describe 'Menus', type: :request do
 
     it 'should update menu if admin' do
       sign_in(admin)
-      expect { subject }.to change { menu.reload.updated_at }
+      expect { subject }.to(change { menu.reload.updated_at })
     end
 
     it 'should redirect action if user' do

@@ -71,7 +71,9 @@ RSpec.feature 'Ordering', type: :feature do
 
     visit order_path(order)
     expect(page).to have_link('Add order items')
-    expect { click_link('Submit order') }.not_to change { order.reload.editable }
+    expect {
+      click_link('Submit order') 
+    }.not_to(change { order.reload.editable })
 
     click_link('Add order items')
     check(@victual_names.first)
@@ -94,10 +96,6 @@ RSpec.feature 'Ordering', type: :feature do
     order = create(:order, user: @user, menu: @menu)
 
     visit order_path(order)
-    expect {
-      click_link('Delete order')
-    }.to change {
-      Order.count
-    }
+    expect { click_link('Delete order') }.to(change { Order.count })
   end
 end

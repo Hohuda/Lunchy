@@ -1,12 +1,10 @@
 class MenusController < ApplicationController
-
-  # before_action :is_user_admin?, except: [:today, :index, :show]
   before_action :load_menu, only: [:edit, :show, :update, :destroy]
-  before_action :is_user_admin_universal_policy, except: [:today, :show]
+  before_action :is_user_admin_universal_policy, except: [:index, :show, :today]
   
   def index
     if params[:search].present?
-      @date = params[:search][:order_date]
+      @date = params[:search][:menu_date]
       @menus = Menu.search_by_date(@date).paginate(page: params[:page])
       render 'for_day'
     else
@@ -60,6 +58,10 @@ class MenusController < ApplicationController
   
   def menu_creating_params
     params.require(:menu).permit(:id, :name)
+  end
+
+  def search_params
+    params.require(:search).permit(menu_date: [])
   end
 
   def load_menu

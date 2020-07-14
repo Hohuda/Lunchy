@@ -22,8 +22,6 @@
       <%= f.input :avatar, label: false, 
                   required: false, 
                   hint: 'Choose avatar image if you want to change avatar.'%>
-
-      <%= f.input :avatar_cache, as: :hidden %>
     </div>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

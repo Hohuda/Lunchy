@@ -17,8 +17,10 @@ RSpec.feature "Navbars", type: :feature do
   end
 
   context 'authorized navbar' do
+    let!(:admin) { create(:admin) }
+    let!(:user) { create(:user) }
+  
     it 'should have admins links if admin' do
-      admin = create(:admin)
       sign_in(admin)
 
       link_names = [
@@ -34,7 +36,6 @@ RSpec.feature "Navbars", type: :feature do
     end
 
     it 'should have users links if user' do
-      user = create(:user)
       sign_in(user)
 
       link_names = [

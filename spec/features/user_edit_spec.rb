@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature "UserEdits", type: :feature do
+  let!(:user) { create(:user) }
+  
   it 'should edit user' do
-    user = create(:user)
     sign_in(user)
 
     visit root_path

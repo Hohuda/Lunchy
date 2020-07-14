@@ -3,7 +3,9 @@
 require 'rails_helper'
 
 RSpec.feature 'Ordering', type: :feature do
-  let!(:user) { create(:user, admin: false) }
+  # First created user is always admin, that's why admin added
+  let!(:admin) { create(:admin) }
+  let!(:user) { create(:user) }
   let!(:menu) { create_menu_with_victuals }
   let!(:victual_names) { menu.victuals.map(&:name) }
 
@@ -87,12 +89,15 @@ RSpec.feature 'Ordering', type: :feature do
     expect(page).to have_content('In Delivery')
   end
 
+  subject { click_link('Delete order') }
   it 'should delete order' do
     sign_in(user)
 
     order = create(:order, user: user, menu: menu)
 
     visit order_path(order)
-    expect { click_link('Delete order') }.to(change { Order.count })
+
+
+    expect { subject }.to(change { Order.count })
   end
 end

@@ -21,7 +21,7 @@ RSpec.describe 'Victuals', type: :request do
   end
 
   describe '#show' do
-    let(:victual) { create(:victual) }
+    let!(:victual) { create(:victual) }
 
     it 'should get show page if admin' do
       sign_in(admin)
@@ -51,7 +51,7 @@ RSpec.describe 'Victuals', type: :request do
   end
 
   describe '#edit' do
-    let(:victual) { create(:victual) }
+    let!(:victual) { create(:victual) }
 
     it 'should get edit victual page if admin' do
       sign_in(admin)
@@ -67,7 +67,7 @@ RSpec.describe 'Victuals', type: :request do
   end
 
   describe '#create' do
-    let(:params) { { victual: attributes_for(:victual) } }
+    let!(:params) { { victual: attributes_for(:victual) } }
 
     subject { post victuals_path, params: params }
 
@@ -78,16 +78,16 @@ RSpec.describe 'Victuals', type: :request do
 
     it 'should redirect action if user' do
       sign_in(user)
-      subject
+      post victuals_path, params: params
       expect(response).to redirect_to(root_path)
     end
   end
 
   describe '#update' do
-    let(:victual) { create(:victual) }
+    let!(:victual) { create(:victual) }
     let(:category_ids) { { category_ids: create_list(:category, 2).map(&:id) } }
     let(:avatar) { { avatar: nil } }
-    let(:params) do
+    let!(:params) do
       { victual: attributes_for(:victual).merge(category_ids).merge(avatar) }
     end
 
@@ -95,26 +95,28 @@ RSpec.describe 'Victuals', type: :request do
 
     it 'should update victual if admin' do
       sign_in(admin)
-      expect { subject }.to change { victual.reload.updated_at }
+      expect { subject }.to(change { victual.reload.updated_at })
     end
 
     it 'should redirect action if user' do
       sign_in(user)
-      subject
+      patch victual_path(victual), params: params
       expect(response).to redirect_to(root_path)
     end
   end
 
   describe '#destroy' do
+    let!(:victual) { create(:victual) }
+
+    subject { delete victual_path(victual) }
+
     it 'should destroy victual if admin' do
-      victual = create(:victual)
       sign_in(admin)
-      expect { delete victual_path(victual) }.to change { Victual.count }.by(-1)
+      expect { subject }.to change { Victual.count }.by(-1)
       expect(response).to redirect_to(victuals_path)
     end
 
     it 'should redirect action if user' do
-      victual = create(:victual)
       sign_in(user)
       delete victual_path(victual)
       expect(response).to redirect_to(root_path)

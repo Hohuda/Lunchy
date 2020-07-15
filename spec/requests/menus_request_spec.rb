@@ -21,7 +21,7 @@ RSpec.describe 'Menus', type: :request do
   end
 
   describe '#show' do
-    let(:menu) { create(:menu) }
+    let!(:menu) { create(:menu) }
 
     it 'should get show page if admin' do
       sign_in(admin)
@@ -51,7 +51,7 @@ RSpec.describe 'Menus', type: :request do
   end
 
   describe '#edit' do
-    let(:menu) { create(:menu) }
+    let!(:menu) { create(:menu) }
 
     it 'should get edit menu page if admin' do
       sign_in(admin)
@@ -67,6 +67,7 @@ RSpec.describe 'Menus', type: :request do
   end
 
   describe '#create' do
+    let!(:menu) { create(:menu) }
     let(:params) { { menu: attributes_for(:menu) } }
 
     subject { post menus_path, params: params }
@@ -78,15 +79,17 @@ RSpec.describe 'Menus', type: :request do
 
     it 'should redirect action if user' do
       sign_in(user)
-      subject
+      post menus_path, params: params
       expect(response).to redirect_to(root_path)
     end
   end
 
   describe '#update' do
-    let(:menu) { create(:menu) }
-    let(:victual_ids) { { victual_ids: create_list(:victual, 5).map(&:id) } }
-    let(:params) { { menu: attributes_for(:menu).merge(victual_ids) } }
+    let!(:menu) { create(:menu) }
+    let(:victual_ids) { create_list(:victual, 5).map(&:id) }
+    let(:params) do
+      { id: menu, menu: { name: 'new menu', victual_ids: victual_ids } }
+    end
 
     subject { patch menu_path(menu), params: params }
 
@@ -97,22 +100,22 @@ RSpec.describe 'Menus', type: :request do
 
     it 'should redirect action if user' do
       sign_in(user)
-      subject
+      patch menu_path(menu), params: params
       expect(response).to redirect_to(root_path)
     end
   end
 
   describe '#destroy' do
-    it 'should delete menu if admin' do
-      menu = create(:menu)
+    let!(:menu) { create(:menu) }
+    
+    subject { delete menu_path(menu) }
 
+    it 'should delete menu if admin' do
       sign_in(admin)
-      expect { delete menu_path(menu) }.to change { Menu.count }.by(-1)
+      expect { subject }.to change { Menu.count }.by(-1)
     end
 
-    it 'should redirect actiono if user' do
-      menu = create(:menu)
-
+    it 'should redirect action if user' do
       sign_in(user)
       delete menu_path(menu)
       expect(response).to redirect_to(root_path)
@@ -129,6 +132,24 @@ RSpec.describe 'Menus', type: :request do
     it 'should get today menus page if user' do
       sign_in(user)
       get today_menus_path
+      expect(response).to have_http_status(:ok)
+    end
+  end
+
+  describe '#for_day' do
+    let(:params) do
+      { search: { menu_date: Date.today.to_s } }
+    end
+
+    it 'should get menus searched by date if admin' do
+      sign_in(admin)
+      get for_day_menus_path, params: params
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'should get menus searched by date if user' do
+      sign_in(user)
+      get for_day_menus_path, params: params
       expect(response).to have_http_status(:ok)
     end
   end

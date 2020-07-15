@@ -9,14 +9,16 @@ RSpec.describe OrderPolicy, type: :policy do
 
   subject { described_class }
 
-  permissions :index? do
-    it 'should be accessible only for admin' do
-      expect(subject).not_to permit(user)
-      expect(subject).to permit(admin)
+  %i[index? today? for_day?].each do |policy|
+    permissions policy do
+      it 'should be accessible only for admin' do
+        expect(subject).not_to permit(user)
+        expect(subject).to permit(admin)
+      end
     end
   end
 
-  policies = %i[show? create? update? destroy? new? edit?]
+  policies = %i[show? create? update? destroy? new? edit? submit?]
 
   policies.each do |policy|
     permissions policy do
@@ -33,7 +35,7 @@ RSpec.describe OrderPolicy, type: :policy do
       context 'if user is admin' do
         it 'grants access to any order' do
           expect(subject).to permit(admin, user_order)
-          expect(subject).to permit(admin, admin_order) 
+          expect(subject).to permit(admin, admin_order)
         end
       end
     end

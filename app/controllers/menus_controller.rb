@@ -43,6 +43,7 @@ class MenusController < ApplicationController
     @menus = Menu.today_menus.paginate(page: params[:page])
   end
   
+  # for_day_menus_path
   def for_day
     if params[:search].present?
       @date = params[:search][:menu_date]

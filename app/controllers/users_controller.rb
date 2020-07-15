@@ -26,6 +26,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def orders
+    @user = User.find(params[:id])
+    authorize @user
+    @orders = Order.where(user_id: params[:id]).paginate(page: params[:page])
+    respond_to do |format|
+      format.html { render 'orders/index'}
+      format.json do
+        render json: { data: @user.to_json(include: [@orders]) }
+      end
+    end
+  end
+
   private
 
   def user_params

@@ -44,4 +44,32 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
+
+  describe '#orders' do
+    it 'should get any user orders page as admin' do
+      sign_in(admin)
+
+      get orders_for_user_path(admin)
+      expect(response).to have_http_status(:ok)
+
+      get orders_for_user_path(user)
+      expect(response).to have_http_status(:ok)
+    end
+
+    context 'if user is not admin' do
+      before(:each) do
+        sign_in(user)
+      end
+      
+      it 'should get own orders page' do
+        get orders_for_user_path(user)
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'redirects when try to get another user orders page' do
+        get orders_for_user_path(admin)
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
 end

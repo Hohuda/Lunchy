@@ -12,15 +12,20 @@ Rails.application.routes.draw do
   
   resources :victuals
 
-  resources :users, only: [:index, :show]
+  resources :users, only: [:index, :show] do
+    member do
+      get 'orders', as: :orders_for
+    end
+  end
 
   resources :orders do
     member do 
       get 'submit'
     end
+
     collection do
-      get 'for_user', as: :user
       get 'today'
+      get 'for_day'
     end
   end
 

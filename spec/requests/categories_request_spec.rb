@@ -19,7 +19,7 @@ RSpec.describe "Categories", type: :request do
   end
 
   describe '#show' do
-    let(:category) { create(:category) }
+    let!(:category) { create(:category) }
 
     it 'should redirect to victuals index with params' do
       sign_in(user)

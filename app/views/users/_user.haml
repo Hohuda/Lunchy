@@ -5,5 +5,5 @@
     .col-sm
       = link_to user.name, user
     .col-sm-auto
-      = link_to 'Orders', user_orders_path(user_id: user.id), class: 'btn btn-secondary'
+      = link_to 'Orders', orders_for_user_path(user), class: 'btn btn-secondary'
   %br

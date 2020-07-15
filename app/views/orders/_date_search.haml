@@ -1,0 +1,11 @@
+.row.justify-content-end
+  .col-auto
+    .container 
+      = simple_form_for(:search, url: for_day_orders_path, method: :get) do |f|
+        .ul.list-inline.mb-3
+          .li.list-inline-item
+            = f.date_field :order_date, as: :date, value: Time.now.strftime('%Y-%m-%d')
+          .li.list-inline-item
+            = f.button :submit, "Search", class: 'btn btn-success'
+          .li.list-inline-item
+            = link_to 'Today orders', today_orders_path, class: 'btn btn-primary'

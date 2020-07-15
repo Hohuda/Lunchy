@@ -92,11 +92,9 @@ RSpec.feature 'Ordering', type: :feature do
   subject { click_link('Delete order') }
   it 'should delete order' do
     sign_in(user)
-
     order = create(:order, user: user, menu: menu)
 
     visit order_path(order)
-
 
     expect { subject }.to(change { Order.count })
   end

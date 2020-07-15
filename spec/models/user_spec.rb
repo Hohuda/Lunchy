@@ -24,13 +24,7 @@ RSpec.describe User, type: :model do
     }
   end
 
-  # FactoryBot creates 10 more users before this one, need more time configuring
-  # describe 'admin' do
-  #   it 'should give admin to first created user' do
-  #     user = create(:user)
-  #     user.save
-  #     byebug
-  #     expect(user.admin?).to eq(true)
-  #   end
-  # end
+  describe 'admin' do
+    it 'should give admin to first created user'
+  end
 end

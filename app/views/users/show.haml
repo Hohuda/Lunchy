@@ -6,7 +6,7 @@
       %h3= @user.name
       %p= @user.company
     .col-auto
-      = simple_form_for(:search, url: menus_path, method: :get ) do |f|
+      = simple_form_for(:search, url: for_day_menus_path, method: :get ) do |f|
         .ul.list-inline.mb-3
           .li.list-inline-item
             = f.date_field :menu_date, as: :date, value: Time.now.strftime('%Y-%m-%d')

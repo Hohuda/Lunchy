@@ -1,8 +1,0 @@
-today_menu: 
-  name: 'Current menu'
-  created_at: <%= Time.zone.now%>
-
-yesterday_menu:
-  name: 'Yesterday menu'
-  created_at: <%= 1.day.ago%>
-  

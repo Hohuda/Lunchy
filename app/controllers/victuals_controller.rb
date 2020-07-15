@@ -4,7 +4,7 @@ class VictualsController < ApplicationController
   before_action :is_user_admin_universal_policy, except: [:index, :show]
 
   def index
-    victuals, @category = Victual.return_victuals_for_index(params)
+    victuals, @category = Victual.search_victuals_by_params(params)
     @victuals = victuals.paginate(page: params[:page])
   end
  

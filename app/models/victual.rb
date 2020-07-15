@@ -15,7 +15,7 @@ class Victual < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
 
-  def self.return_victuals_for_index(params)
+  def self.search_victuals_by_params(params)
     if params[:category_id].present?
       category = Category.find(params[:category_id])
       [category.victuals.order(:name), category]

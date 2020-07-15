@@ -6,18 +6,19 @@ RSpec.describe MenuItem, type: :model do
     it { should belong_to(:victual) }
 
     context 'when try to destroy parent model' do
-      before(:each) do
-        @menu = create(:menu)
-        @victual = create(:victual)
-        @menu.victuals << @victual
+      let(:menu) { create(:menu) }
+      let(:victual) { create(:victual) }
+
+      before do
+        menu.victuals << victual
       end
 
       it 'should depend on Menu destroying' do
-        expect { @menu.destroy }.to change { MenuItem.count }.by(-1)
+        expect { menu.destroy }.to change { MenuItem.count }.by(-1)
       end
 
       it 'should depend on Victual destroying' do
-        expect { @victual.destroy }.to change { MenuItem.count }.by(-1)
+        expect { victual.destroy }.to change { MenuItem.count }.by(-1)
       end
     end
   end

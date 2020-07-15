@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe CategoryItem, type: :model do
@@ -6,18 +8,19 @@ RSpec.describe CategoryItem, type: :model do
     it { should belong_to(:category) }
 
     context 'when try to destroy parent model' do
+      let(:victual) { create(:victual) }
+      let(:category) { create(:category) }
+
       before(:each) do
-        @victual = create(:victual)
-        @category = create(:category)
-        @victual.categories << @category
+        victual.categories << category
       end
 
       it 'should depend on Victual destroying' do
-        expect { @victual.destroy }.to change { CategoryItem.count }.by(-1)
+        expect { victual.destroy }.to change { CategoryItem.count }.by(-1)
       end
-      
+
       it 'should depend on Category destroying' do
-        expect { @category.destroy }.to change { CategoryItem.count }.by(-1)
+        expect { category.destroy }.to change { CategoryItem.count }.by(-1)
       end
     end
   end
@@ -27,7 +30,7 @@ RSpec.describe CategoryItem, type: :model do
     it { should have_db_column(:category_id).of_type(:integer) }
     it { should have_db_index(:victual_id) }
     it { should have_db_index(:category_id) }
-    it { should have_db_index([:victual_id, :category_id]).unique }
+    it { should have_db_index(%i[victual_id category_id]).unique }
   end
 
   describe 'validations' do

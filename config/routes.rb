@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
   resources :menus do
     collection do
+      get 'for_day'
       get 'today'
     end
   end

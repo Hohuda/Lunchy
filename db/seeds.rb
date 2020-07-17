@@ -68,7 +68,7 @@ puts "Start creating users"
 User.create name: 'Anatoly', email: 'anatoly@gmail.com', password: 'password', password_confirmation: 'password'
 
 # Seeding other account
-40.times do |n|
+20.times do |n|
   user_name = Faker::Name.name
   User.create name: user_name, email: "email#{n}@gmail.com", password: 'password'
 end
